@@ -1,0 +1,16 @@
+﻿  TestMain.cpp
+TestMain.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Window::Window(void)" (__imp_??0Window@sf@@QAE@XZ) referenced in function "void __cdecl `dynamic initializer for 'window''(void)" (??__Ewindow@@YAXXZ)
+TestMain.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual __thiscall sf::Window::~Window(void)" (__imp_??1Window@sf@@UAE@XZ) referenced in function "void __cdecl `dynamic atexit destructor for 'window''(void)" (??__Fwindow@@YAXXZ)
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol _main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+..\SFML-2.4.2\lib\sfml-graphics-s-d.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\sfml-window-s-d.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\sfml-audio-s-d.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\sfml-system-s-d.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\freetype.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\jpeg.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\flac.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\vorbisenc.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\vorbisfile.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\vorbis.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+..\SFML-2.4.2\lib\ogg.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+F:\Liero\DV1570_FO_JS_MT\DV1570_FO_JS_MT\DV1570\Debug\DV1570.exe : fatal error LNK1120: 3 unresolved externals
