@@ -25,6 +25,9 @@
   <ItemGroup>
     <ClInclude Include="Header\Object.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E414065B-3F51-4107-AA0E-1EF50DAD59FE}</ProjectGuid>
