@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Object.h" />
+    <ClInclude Include="Header\Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

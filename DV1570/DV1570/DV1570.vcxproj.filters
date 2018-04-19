@@ -26,6 +26,9 @@
     <ClInclude Include="Header\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Header\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
