@@ -15,4 +15,5 @@ Game::Game()
 
 void Game::Update(float dt)
 {
+	player.update(dt);
 }

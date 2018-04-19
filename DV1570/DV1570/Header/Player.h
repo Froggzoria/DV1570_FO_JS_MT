@@ -8,5 +8,9 @@ class Player : public sf::Drawable
 private:
 
 public:
+	Player();
+	~Player();
+
+	void update(float dt);
 };
 #endif
