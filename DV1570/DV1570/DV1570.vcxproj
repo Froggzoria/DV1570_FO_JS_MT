@@ -19,12 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Header\GameState.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\GameState.h" />
     <ClInclude Include="Header\Object.h" />
-    <ClInclude Include="Header\Menu.h" />
+    <ClInclude Include="Header\SubState.h" />
+    <ClInclude Include="Header\State.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
