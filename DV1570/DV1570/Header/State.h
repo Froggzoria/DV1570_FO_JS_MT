@@ -7,6 +7,7 @@ class State
 private:
 	bool m_exitState = false;
 	std::stack<SubState> m_substates;
+	Object m_stateObject;
 
 	virtual void _init() = 0;
 public:

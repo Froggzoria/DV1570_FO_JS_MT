@@ -1,7 +1,7 @@
 #pragma once
 #include "State.h"
 
-class GameState : public State
+class MainMenuState : public State
 {
 private:
 
@@ -9,8 +9,8 @@ private:
 	void _init();
 
 public:
-	GameState();
-	~GameState();
+	MainMenuState();
+	~MainMenuState();
 
 	void update(float dt);
 	void draw();

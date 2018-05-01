@@ -18,4 +18,3 @@ private:
 
 };
 #endif //!_OBJECT_H
-
