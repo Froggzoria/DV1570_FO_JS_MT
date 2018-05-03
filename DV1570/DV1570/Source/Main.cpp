@@ -4,10 +4,11 @@
 int main()
 {
 	std::stack<State*> gameStates;
-	GameState* test;
+	
+	GameState* test = new GameState();
 
-	gameStates.push(dynamic_cast<State*>(test));
-	//gameStates.top()->draw();
+	gameStates.push(test);
+
 
 	return 0;
 }
