@@ -3,7 +3,7 @@
 void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(backgroundSprite, states);
-	//target.draw(player, states);
+	target.draw(player, states);
 }
 
 Game::Game() : player(sf::Vector2f(0, 0))
