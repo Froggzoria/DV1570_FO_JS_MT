@@ -5,14 +5,16 @@
 class State
 {
 private:
-	bool m_exitState = false;
+	virtual void _init() = 0;
+
+protected:
+	bool m_exitState;
 	std::stack<SubState> m_substates;
 	Object m_stateObject;
 
-	virtual void _init() = 0;
 public:
 
-	State() {}
+	State() { m_exitState = false; }
 	virtual ~State() {}
 
 	virtual void update(float dt) = 0;
