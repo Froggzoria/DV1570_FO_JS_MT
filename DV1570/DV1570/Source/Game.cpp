@@ -2,15 +2,18 @@
 
 void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	if (!mBackgroundTex.loadFromFile("../Rescoures/background.png"))
+	target.draw(backgroundSprite, states);
+	//target.draw(player, states);
+}
+
+Game::Game() : player(sf::Vector2f(0, 0))
+{
+	sf::String fileName = "../Rescoures/background.png";
+	if (!backgroundTex.loadFromFile(fileName))
 	{
 		std::cout << "ERROR: Background image could not be loaded.\n---" << std::endl;
 	}
-	mBackgroundSprite.setTexture(mBackgroundTex);
-}
-
-Game::Game()
-{
+	backgroundSprite.setTexture(backgroundTex);
 }
 
 void Game::Update(float dt)

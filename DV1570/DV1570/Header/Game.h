@@ -8,14 +8,11 @@
 class Game : public sf::Drawable
 {
 private:
-	sf::Texture mBackgroundTex;
-	sf::Sprite mBackgroundSprite;
+	sf::Texture backgroundTex;
+	sf::Sprite backgroundSprite;
 	Player player;
 
-	//Tiles tiles;
-
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-	
 public:
 	Game();
 
