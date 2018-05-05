@@ -17,7 +17,7 @@ void MainMenuState::update(float dt)
 {
 }
 
-void MainMenuState::draw()
+void MainMenuState::draw() const
 {
 	
 }

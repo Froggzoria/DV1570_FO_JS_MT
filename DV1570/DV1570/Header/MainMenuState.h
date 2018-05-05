@@ -13,5 +13,5 @@ public:
 	~MainMenuState();
 
 	void update(float dt);
-	void draw();
+	void draw() const;
 };

@@ -18,5 +18,5 @@ public:
 	virtual ~State() {}
 
 	virtual void update(float dt) = 0;
-	virtual void draw() = 0;
+	virtual void draw() const = 0;
 };

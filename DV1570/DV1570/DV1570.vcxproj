@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Editor.cpp" />
     <ClCompile Include="Source\SubState.cpp" />
     <ClCompile Include="Source\GameState.cpp" />
     <ClCompile Include="Source\MainMenuState.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\Editor.h" />
     <ClInclude Include="Header\GameState.h" />
     <ClInclude Include="Header\MainMenuState.h" />
     <ClInclude Include="Header\Object.h" />
