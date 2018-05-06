@@ -13,17 +13,6 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Game Window");
 	Game game;
 	sf::Clock gameTime;
-
-	//lua_State *L = luaL_newstate();
-	//luaL_openlibs(L);
-
-	//luaL_dofile(L, "Scripts//Player.lua");
-	//lua_getglobal(L, "printMsg");
-	//lua_pushstring(L, "hello from lua");
-	//lua_pushnumber(L, 5);
-	//lua_pcall(L, 2, 0, 0);
-
-	//lua_close(L);
 	
 
 	while (window.isOpen())
@@ -36,7 +25,7 @@ int main()
 		}
 
 		// Update()
-		game.Update(gameTime.restart().asSeconds());
+		game.Update(gameTime.restart().asSeconds(), window);
 
 		// Draw()
 		window.clear();

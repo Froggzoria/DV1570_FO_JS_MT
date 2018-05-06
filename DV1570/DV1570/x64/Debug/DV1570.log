@@ -1,6 +1,3 @@
-﻿  Player.cpp
-c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(51): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(60): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(69): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(78): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-  DV1570.vcxproj -> C:\Users\maxim\OneDrive\Dokumente\Lua\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe
+﻿  Game.cpp
+c:\users\mtlat\repos\dv1570_fo_js_mt\dv1570\dv1570\source\game.cpp(39): warning C4018: '<': signed/unsigned mismatch
+  DV1570.vcxproj -> C:\Users\mtlat\repos\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe

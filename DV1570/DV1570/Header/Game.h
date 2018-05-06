@@ -16,6 +16,6 @@ private:
 public:
 	Game();
 
-	void Update(float dt);
+	void Update(float dt, const sf::Window &win);
 };
 #endif
