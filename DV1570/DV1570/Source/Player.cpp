@@ -5,9 +5,15 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(sprite, states);
 }
 
-Player::Player(sf::Vector2f pos)
+Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)
 {
-	sf::String fileName = "../Resources/player1.png";
+	this->L = luaL_newstate();
+	luaL_openlibs(L);
+	luaL_dofile(L, "Scripts//Player.lua");
+
+	this->name = name;
+	this->hp = hp;
+	sf::String fileName = "..//Resources//player1.png";
 	if (!texture.loadFromFile(fileName))
 	{
 		// Handle error: Print error message.
@@ -28,47 +34,55 @@ Player::Player(sf::Vector2f pos)
 
 Player::~Player()
 {
-
+	lua_close(L);
 }
 
 void Player::update(float dt)
 {
 	//Keyboard inputs
+	velocity.x = 0.0f;
+	velocity.y = 0.0f;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		velocity.x = -1.0f;
+		lua_getglobal(L, "Move");
+		lua_pushnumber(L, sf::Keyboard::Left);
+		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+			velocity.x = lua_tonumber(L, -1);
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 1;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		velocity.x = 1.0f;
+		lua_getglobal(L, "Move");
+		lua_pushnumber(L, sf::Keyboard::Right);
+		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+			velocity.x = lua_tonumber(L, -1);
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 2;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		velocity.y = 1.0f;
+		lua_getglobal(L, "Move");
+		lua_pushnumber(L, sf::Keyboard::Down);
+		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+			velocity.y = lua_tonumber(L, -1);
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 0;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		velocity.y = -1.0f;
+		lua_getglobal(L, "Move");
+		lua_pushnumber(L, sf::Keyboard::Up);
+		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+			velocity.y = lua_tonumber(L, -1);
 		keyFrameDuration += dt;
-		currentKeyFrame.y = 4;
-	}
-	else
-	{
-		velocity.x = 0.0f;
-	}
-	if (velocity.y > 2)
-	{
-		velocity.y = 0.0f;
+		currentKeyFrame.y = 3;
 	}
 	//actual movement
 	sprite.move(velocity * speed * dt);
 
+	
 
 	//Update animation
 	if (keyFrameDuration >= animationSpeed)
@@ -82,5 +96,10 @@ void Player::update(float dt)
 			currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
 		keyFrameDuration = 0.0f;
 	}
+
+}
+
+void Player::Move()
+{
 
 }

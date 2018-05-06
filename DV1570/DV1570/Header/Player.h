@@ -3,6 +3,13 @@
 
 #include<SFML\Graphics.hpp>
 #include<iostream>
+
+extern "C" {
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+}
+
 using namespace std;
 class Player
 {
@@ -18,10 +25,14 @@ private:
 	float animationSpeed;
 	float keyFrameDuration;
 
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+	lua_State * L;
+	const char* name;
+	unsigned int hp;
 public:
-	Player(sf::Vector2f pos);
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+	Player(const char* name, unsigned int hp, sf::Vector2f pos);
 	~Player();
+	void Move();
 
 	void update(float dt);
 };
