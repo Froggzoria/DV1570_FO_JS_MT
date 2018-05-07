@@ -5,7 +5,7 @@ int main()
 {
 	std::stack<State*> gameStates;
 	
-	GameState* test = new GameState();
+	GameState* test = new GameState("");
 
 	gameStates.push(test);
 

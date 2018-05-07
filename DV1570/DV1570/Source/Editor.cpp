@@ -34,6 +34,15 @@ void Editor::exitBuildMode()
 
 }
 
+bool Editor::getIndestructibleElements() const
+{
+	return false;
+}
+
+void Editor::setIndestructibleElements(bool indestructible)
+{
+}
+
 void Editor::draw() const
 {
 }

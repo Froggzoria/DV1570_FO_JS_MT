@@ -2,7 +2,6 @@
 
 void GameState::_init(std::string pathToTexture, sf::IntRect area, sf::Vector2f position)
 {
-
 }
 
 GameState::GameState(std::string pathToTexture, sf::IntRect area, sf::Vector2f position)

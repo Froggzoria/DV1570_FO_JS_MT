@@ -5,7 +5,7 @@
 class State
 {
 private:
-	virtual void _init() = 0;
+	virtual void _init(std::string pathToTexture, sf::IntRect area, sf::Vector2f position) = 0;
 
 protected:
 	bool m_exitState;
