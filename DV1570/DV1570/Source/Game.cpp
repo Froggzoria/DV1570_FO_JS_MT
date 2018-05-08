@@ -17,9 +17,9 @@ Game::Game() : player("charlie", 100, sf::Vector2f(0, 0))
 	backgroundSprite.setTexture(backgroundTex);
 }
 
-void Game::Update(float dt, const sf::Window &win)
+void Game::Update(float dt, const sf::Window &win, lua_State *L)
 {
-	player.update(dt);
+	player.update(dt, L);
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i pos = sf::Mouse::getPosition(win);

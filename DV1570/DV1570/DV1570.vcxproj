@@ -32,6 +32,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="packages.config" />
+    <None Include="Scripts\Game.lua" />
     <None Include="Scripts\Player.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

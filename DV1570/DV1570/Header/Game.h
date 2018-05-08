@@ -16,6 +16,6 @@ private:
 public:
 	Game();
 
-	void Update(float dt, const sf::Window &win);
+	void Update(float dt, const sf::Window &win, lua_State *L);
 };
 #endif

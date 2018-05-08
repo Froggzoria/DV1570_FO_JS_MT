@@ -1,3 +1,7 @@
+local player = Player("Max", 100, 10, 15)
+print(player:getname())
+player:setname("The Dude")
+print(player:getname())
 
 function Move(key)
 	local var

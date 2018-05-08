@@ -43,5 +43,6 @@
     <None Include=".gitignore" />
     <None Include="packages.config" />
     <None Include="Scripts\Player.lua" />
+    <None Include="Scripts\Game.lua" />
   </ItemGroup>
 </Project>

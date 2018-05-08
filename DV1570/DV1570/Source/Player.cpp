@@ -7,10 +7,6 @@ void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)
 {
-	this->L = luaL_newstate();
-	luaL_openlibs(L);
-	luaL_dofile(L, "Scripts//Player.lua");
-
 	this->name = name;
 	this->hp = hp;
 	sf::String fileName = "..//Resources//player1.png";
@@ -34,10 +30,10 @@ Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)
 
 Player::~Player()
 {
-	lua_close(L);
+
 }
 
-void Player::update(float dt)
+void Player::update(float dt, lua_State * L)
 {
 	//Keyboard inputs
 	velocity.x = 0.0f;
@@ -48,7 +44,10 @@ void Player::update(float dt)
 		lua_getglobal(L, "Move");
 		lua_pushnumber(L, sf::Keyboard::Left);
 		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+		{
 			velocity.x = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+		}
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 1;
 	}
@@ -57,7 +56,10 @@ void Player::update(float dt)
 		lua_getglobal(L, "Move");
 		lua_pushnumber(L, sf::Keyboard::Right);
 		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+		{
 			velocity.x = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+		}
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 2;
 	}
@@ -66,7 +68,10 @@ void Player::update(float dt)
 		lua_getglobal(L, "Move");
 		lua_pushnumber(L, sf::Keyboard::Down);
 		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+		{
 			velocity.y = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+		}
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 0;
 	}
@@ -75,7 +80,10 @@ void Player::update(float dt)
 		lua_getglobal(L, "Move");
 		lua_pushnumber(L, sf::Keyboard::Up);
 		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
+		{
 			velocity.y = lua_tonumber(L, -1);
+			lua_pop(L, 1);
+		}
 		keyFrameDuration += dt;
 		currentKeyFrame.y = 3;
 	}

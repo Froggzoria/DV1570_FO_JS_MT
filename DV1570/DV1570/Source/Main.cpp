@@ -14,6 +14,11 @@ int main()
 	Game game;
 	sf::Clock gameTime;
 	
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	register_player(L);
+	luaL_dofile(L, "Scripts//Game.lua");
+	//luaL_dofile(L, "Scripts//Player.lua");
 
 	while (window.isOpen())
 	{
@@ -25,12 +30,13 @@ int main()
 		}
 
 		// Update()
-		game.Update(gameTime.restart().asSeconds(), window);
+		game.Update(gameTime.restart().asSeconds(), window, L);
 
 		// Draw()
 		window.clear();
 		window.draw(game);
 		window.display();
 	}
+	lua_close(L);
 	return 0;
 }
