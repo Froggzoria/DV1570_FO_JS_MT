@@ -3,7 +3,7 @@
 #define _OBJECT_H
 #include <SFML\Graphics.hpp>
 
-class Object
+class Object : public sf::Drawable
 {
 public:
 	Object();
@@ -15,6 +15,8 @@ private:
 	sf::Vector2f m_pos;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+
+	virtual void draw(sf::RenderTarget &window, sf::RenderStates states) const;
 
 };
 #endif //!_OBJECT_H

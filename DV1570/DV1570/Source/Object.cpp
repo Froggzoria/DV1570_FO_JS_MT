@@ -31,3 +31,8 @@ void Object::update()
 	m_sprite.setPosition(m_pos);
 }
 
+void Object::draw(sf::RenderTarget &window, sf::RenderStates states) const
+{
+	window.draw(m_sprite, states);
+}
+
