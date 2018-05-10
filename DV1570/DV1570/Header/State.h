@@ -15,7 +15,7 @@ protected:
 public:
 
 	State() { m_exitState = false; }
-	virtual ~State() {}
+	virtual~State() {}
 
 	virtual void update(float dt) = 0;
 	virtual void draw() const = 0;

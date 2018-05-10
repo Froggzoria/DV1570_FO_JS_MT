@@ -10,7 +10,7 @@ private:
 
 public:
 	MainMenuState(std::string pathToTexture, sf::IntRect area = sf::IntRect(), sf::Vector2f position = sf::Vector2f(0, 0));
-	~MainMenuState();
+	virtual~MainMenuState();
 
 	void update(float dt);
 	void draw() const;

@@ -1,10 +1,13 @@
 #pragma once
 #include "Object.h"
+#include "Map.h"
 #include <vector>
 
 class Editor : public sf::Drawable
 {
 private:
+	Map gameMap;
+
 	std::vector<Object*> m_mapElements;
 	std::vector<Object*> m_destructibleMapElements;
 	std::vector<Object*> m_indestructibleMapElements;
@@ -27,8 +30,5 @@ public:
 
 	void enterBuildMode();
 	void exitBuildMode();
-
-	bool getIndestructibleElements() const;
-	void setIndestructibleElements(bool indestructible);
 	void update();
 };

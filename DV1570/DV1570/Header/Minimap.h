@@ -7,13 +7,15 @@ private:
 	sf::View m_minimapView;
 	sf::RectangleShape m_minimapBorder;
 
+	// Pointer to the game map for drawing
+
 	void _init(sf::RenderTarget &window);
 
 	virtual void draw(sf::RenderTarget &window, sf::RenderStates states) const;
 
 public:
 	Minimap(sf::RenderTarget &window);
-	virtual ~Minimap();
+	virtual~Minimap();
 
 	void update();
 };

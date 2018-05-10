@@ -10,7 +10,7 @@ private:
 
 public:
 	GameState(std::string pathToTexture, sf::IntRect area = sf::IntRect(), sf::Vector2f position = sf::Vector2f(0, 0));
-	~GameState();
+	virtual~GameState();
 
 	void update(float dt);
 	void draw() const;
