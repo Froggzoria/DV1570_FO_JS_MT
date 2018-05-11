@@ -4,10 +4,35 @@
 void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(backgroundSprite, states);
-	player.draw(target, states);
+	for (auto player : players)
+	{
+		player->draw(target, states);
+	}
 }
 
-Game::Game() : player("charlie", 100, sf::Vector2f(0, 0))
+void Game::getPlayersFromLua(lua_State * L)
+{
+	lua_getglobal(L, "playerTable");
+	Player *p = nullptr;
+	std::cout << lua_topointer(L, -1) << std::endl;
+	lua_pushnil(L);
+	//loop through the table 
+	while (lua_next(L, -2) != 0)
+	{
+		std::cout << lua_typename(L, lua_type(L, -1)) << std::endl;
+		if (lua_type(L, -1) == LUA_TUSERDATA)
+		{
+			std::cout << lua_topointer(L, -1) << std::endl;
+			p = *(Player**)lua_touserdata(L, -1);
+			players.push_back(p);
+		}
+			
+		lua_pop(L, 1);
+	}
+
+}
+
+Game::Game()
 {
 	sf::String fileName = "..//Resources//bg.jpg";
 	if (!backgroundTex.loadFromFile(fileName))
@@ -17,9 +42,28 @@ Game::Game() : player("charlie", 100, sf::Vector2f(0, 0))
 	backgroundSprite.setTexture(backgroundTex);
 }
 
+bool Game::init(lua_State * L, std::string script)
+{
+	if (luaL_dofile(L, script.c_str()) != EXIT_SUCCESS)
+	{
+		printf(lua_tostring(L, -1));
+		lua_pop(L, 1);
+		return false;
+	}
+	//run the script that will instantiate all the Objects that were
+	//created/added in the editor - let the script read and parse the level save file
+	//get all the object pointers from the global object tables in Lua
+	getPlayersFromLua(L);
+
+	return true;
+}
+
 void Game::Update(float dt, const sf::Window &win, lua_State *L)
 {
-	player.update(dt, L);
+	for (auto player : players)
+	{
+		player->update(dt, L);
+	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i pos = sf::Mouse::getPosition(win);

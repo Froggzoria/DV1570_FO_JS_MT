@@ -1,17 +1,28 @@
-local player = Player("Max", 100, 10, 15)
-print(player:getname())
-player:setname("The Dude")
-print(player:getname())
+--LEVEL_PATH is a set global that contains the path of the level the player wants to play
+print(LEVEL_PATH)
 
-function Move(key)
-	local var
-	if key == 71 or key == 73 then  
-		print(key) 
-		var = -0.5
+--have a collection of global tables for all defined types
+
+playerTable = {}
+
+levelFile = io.open(LEVEL_PATH, "r")
+--[[When we are parsing the level, we first get the type 
+of the defined object - then we know how many values to get
+from the line to create an instance of the described object]]
+if levelFile then
+	print("Loading: " .. LEVEL_PATH)
+	for line in levelFile:lines() do
+		local type = line:match("(%a+)")
+		print(type)
+		if type == "Player" then
+			local name, hp, x, y = line:match("(%a+) (%d+) (%d+) (%d+)")
+			print(name .. " " .. hp .. " " ..  x .. " " ..  y)
+			table.insert(playerTable, Player(name, hp, x, y))
+		end
 	end
-	if key == 72 or key == 74 then 
-		print(key)
-		var = 0.5
-	end
-	return var
+else
+	error("BAD PATH - LEVEL NOT LOADED\n")
 end
+--in case of bad path return an error - make sure to check for it (!= EXIT_SUCCESS)
+
+print("Number of Players: " .. #playerTable)

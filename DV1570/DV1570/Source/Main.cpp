@@ -17,8 +17,12 @@ int main()
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 	register_player(L);
-	luaL_dofile(L, "Scripts//Game.lua");
-	//luaL_dofile(L, "Scripts//Player.lua");
+	lua_pushstring(L, "Levels//TestLevel.txt");
+	lua_setglobal(L, "LEVEL_PATH");
+
+	if (!game.init(L, "Scripts//Game.lua"))
+		goto Exit;
+	luaL_dofile(L, "Scripts//Player.lua");
 
 	while (window.isOpen())
 	{
@@ -37,6 +41,9 @@ int main()
 		window.draw(game);
 		window.display();
 	}
+Exit:
+	std::cout << "\n\nPress anything to exit\n\n";
+	std::getchar();
 	lua_close(L);
 	return 0;
 }
