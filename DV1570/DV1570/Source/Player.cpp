@@ -18,14 +18,13 @@ Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)
 	sprite.setTexture(texture);
 	sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 
-	// Initialise animation variables.
+	// Initialize animation variables.
 	currentKeyFrame = sf::Vector2i(0, 0);
 	keyFrameSize = sf::Vector2i(32, 32);
 	spriteWidth = 4;
 	animationSpeed = 0.2f;
 	keyFrameDuration = 0.0f;
 	sprite.setPosition(pos);
-	velocity = (sf::Vector2f(0.0f, 0.0f));
 }
 
 Player::~Player()
@@ -35,62 +34,7 @@ Player::~Player()
 
 void Player::update(float dt, lua_State * L)
 {
-	//Keyboard inputs
-	velocity.x = 0.0f;
-	velocity.y = 0.0f;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		lua_getglobal(L, "Move");
-		lua_pushnumber(L, sf::Keyboard::Left);
-		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
-		{
-			velocity.x = lua_tonumber(L, -1);
-			lua_pop(L, 1);
-		}
-		keyFrameDuration += dt;
-		currentKeyFrame.y = 1;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		lua_getglobal(L, "Move");
-		lua_pushnumber(L, sf::Keyboard::Right);
-		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
-		{
-			velocity.x = lua_tonumber(L, -1);
-			lua_pop(L, 1);
-		}
-		keyFrameDuration += dt;
-		currentKeyFrame.y = 2;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		lua_getglobal(L, "Move");
-		lua_pushnumber(L, sf::Keyboard::Down);
-		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
-		{
-			velocity.y = lua_tonumber(L, -1);
-			lua_pop(L, 1);
-		}
-		keyFrameDuration += dt;
-		currentKeyFrame.y = 0;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		lua_getglobal(L, "Move");
-		lua_pushnumber(L, sf::Keyboard::Up);
-		if (lua_pcall(L, 1, 1, 0) == EXIT_SUCCESS)
-		{
-			velocity.y = lua_tonumber(L, -1);
-			lua_pop(L, 1);
-		}
-		keyFrameDuration += dt;
-		currentKeyFrame.y = 3;
-	}
-	//actual movement
-	sprite.move(velocity * speed * dt);
-
-	
+	this->Move(dt, L);
 
 	//Update animation
 	if (keyFrameDuration >= animationSpeed)
@@ -107,7 +51,27 @@ void Player::update(float dt, lua_State * L)
 
 }
 
-void Player::Move()
+void Player::Move(float dt, lua_State * L)
 {
+	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Left));
+	lua_setglobal(L, "MOVE_LEFT");
+	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Right));
+	lua_setglobal(L, "MOVE_RIGHT");
+	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Up));
+	lua_setglobal(L, "MOVE_UP");
+	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
+	lua_setglobal(L, "MOVE_DOWN");
 
+	lua_getglobal(L, "MovePlayer");
+	lua_pushnumber(L, this->speed);
+	lua_pushnumber(L, dt);
+	lua_pushnumber(L, keyFrameDuration);
+
+	if (lua_pcall(L, 3, 4, 0) == EXIT_SUCCESS)
+	{
+		keyFrameDuration = lua_tonumber(L, -1);
+		currentKeyFrame.y = lua_tonumber(L, -2);
+		sprite.move(sf::Vector2f(lua_tonumber(L, -4), lua_tonumber(L, -3)));
+		lua_pop(L, 4);
+	}
 }
