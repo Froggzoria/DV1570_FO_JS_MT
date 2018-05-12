@@ -12,7 +12,7 @@ void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Game::getPlayersFromLua(lua_State * L)
 {
-	lua_getglobal(L, "playerTable");
+	lua_getglobal(L, "PLAYERS");
 	Player *p = nullptr;
 	std::cout << lua_topointer(L, -1) << std::endl;
 	lua_pushnil(L);
@@ -20,13 +20,12 @@ void Game::getPlayersFromLua(lua_State * L)
 	while (lua_next(L, -2) != 0)
 	{
 		std::cout << lua_typename(L, lua_type(L, -1)) << std::endl;
-		if (lua_type(L, -1) == LUA_TUSERDATA)
+		if (true)
 		{
 			std::cout << lua_topointer(L, -1) << std::endl;
-			p = *(Player**)lua_touserdata(L, -1);
+			p = (Player*)lua_touserdata(L, -1);
 			players.push_back(p);
 		}
-			
 		lua_pop(L, 1);
 	}
 

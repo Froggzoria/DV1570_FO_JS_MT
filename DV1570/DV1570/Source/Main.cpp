@@ -34,7 +34,11 @@ int main()
 		}
 
 		// Update()
-		game.Update(gameTime.restart().asSeconds(), window, L);
+		float dt = gameTime.restart().asSeconds();
+		lua_pushnumber(L, dt);
+		lua_setglobal(L, "FRAME_DELTA_TIME");
+
+		game.Update(dt, window, L);
 
 		// Draw()
 		window.clear();
@@ -42,8 +46,11 @@ int main()
 		window.display();
 	}
 Exit:
+	window.close();
+	lua_close(L);
+
 	std::cout << "\n\nPress anything to exit\n\n";
 	std::getchar();
-	lua_close(L);
+	
 	return 0;
 }

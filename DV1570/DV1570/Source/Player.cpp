@@ -51,27 +51,28 @@ void Player::update(float dt, lua_State * L)
 
 }
 
-void Player::Move(float dt, lua_State * L)
+void Player::Move(lua_State * L)
 {
-	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Left));
-	lua_setglobal(L, "MOVE_LEFT");
-	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Right));
-	lua_setglobal(L, "MOVE_RIGHT");
-	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Up));
-	lua_setglobal(L, "MOVE_UP");
-	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
-	lua_setglobal(L, "MOVE_DOWN");
-
-	lua_getglobal(L, "MovePlayer");
-	lua_pushnumber(L, this->speed);
-	lua_pushnumber(L, dt);
-	lua_pushnumber(L, keyFrameDuration);
-
-	if (lua_pcall(L, 3, 4, 0) == EXIT_SUCCESS)
+	//only run the script on input
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		keyFrameDuration = lua_tonumber(L, -1);
-		currentKeyFrame.y = lua_tonumber(L, -2);
-		sprite.move(sf::Vector2f(lua_tonumber(L, -4), lua_tonumber(L, -3)));
-		lua_pop(L, 4);
+		lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Left));
+		lua_setglobal(L, "MOVE_LEFT");
+		lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Right));
+		lua_setglobal(L, "MOVE_RIGHT");
+		lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Up));
+		lua_setglobal(L, "MOVE_UP");
+		lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Down));
+		lua_setglobal(L, "MOVE_DOWN");
+
+		lua_getglobal(L, "MovePlayer");
+		lua_pushlightuserdata(L, (void*)this);
+		if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
+		{
+			printf(lua_tostring(L, -1));
+		}
 	}
 }

@@ -1,8 +1,15 @@
-﻿  Player.cpp
-c:\users\mtlat\repos\gitkraken\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(48): warning C4244: 'initializing': conversion from 'lua_Number' to 'unsigned int', possible loss of data
-c:\users\mtlat\repos\gitkraken\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(49): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\mtlat\repos\gitkraken\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(50): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\mtlat\repos\gitkraken\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(73): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-c:\users\mtlat\repos\gitkraken\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(74): warning C4244: '=': conversion from 'lua_Number' to 'int', possible loss of data
-c:\users\mtlat\repos\gitkraken\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(75): warning C4244: 'argument': conversion from 'lua_Number' to 'float', possible loss of data
-  DV1570.vcxproj -> C:\Users\mtlat\repos\gitkraken\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe
+﻿  Main.cpp
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(51): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(59): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(76): warning C4244: 'initializing': conversion from 'lua_Number' to 'unsigned int', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(77): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(78): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(121): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(145): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(169): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(193): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(194): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(217): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(218): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+c:\users\maxim\onedrive\dokumente\lua\dv1570_fo_js_mt\dv1570\dv1570\source\main.cpp(12): warning C4552: '|': operator has no effect; expected operator with side-effect
+  DV1570.vcxproj -> C:\Users\maxim\OneDrive\Dokumente\Lua\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe

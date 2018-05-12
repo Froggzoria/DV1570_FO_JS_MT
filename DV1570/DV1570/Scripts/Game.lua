@@ -3,7 +3,7 @@ print(LEVEL_PATH)
 
 --have a collection of global tables for all defined types
 
-playerTable = {}
+PLAYERS = {}
 
 levelFile = io.open(LEVEL_PATH, "r")
 --[[When we are parsing the level, we first get the type 
@@ -17,7 +17,8 @@ if levelFile then
 		if type == "Player" then
 			local name, hp, x, y = line:match("(%a+) (%d+) (%d+) (%d+)")
 			print(name .. " " .. hp .. " " ..  x .. " " ..  y)
-			table.insert(playerTable, Player(name, hp, x, y))
+			local newPlayer =  Player(name, hp, x, y)
+			table.insert(PLAYERS, newPlayer)
 		end
 	end
 else
@@ -25,4 +26,5 @@ else
 end
 --in case of bad path return an error - make sure to check for it (!= EXIT_SUCCESS)
 
-print("Number of Players: " .. #playerTable)
+print("Number of Players: " .. #PLAYERS)
+
