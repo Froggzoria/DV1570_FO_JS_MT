@@ -8,6 +8,7 @@ void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	{
 		player->draw(target, states);
 	}
+	
 }
 
 void Game::getPlayersFromLua(lua_State * L)

@@ -3,6 +3,7 @@
 void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
+	wep.draw(target, states);
 }
 
 Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)
@@ -34,7 +35,7 @@ Player::~Player()
 
 void Player::update(float dt, lua_State * L)
 {
-	this->Move(dt, L);
+	this->Move(L);
 
 	//Update animation
 	if (keyFrameDuration >= animationSpeed)
@@ -48,7 +49,7 @@ void Player::update(float dt, lua_State * L)
 			currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
 		keyFrameDuration = 0.0f;
 	}
-
+	this->wep.update(dt, sprite.getPosition());
 }
 
 void Player::Move(lua_State * L)

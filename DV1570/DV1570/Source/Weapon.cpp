@@ -7,16 +7,19 @@ void Weapon::normalize()
 	this->normalizedVector.x = this->velocityVector.x / magnitude;
 }
 
-Weapon::Weapon(sf::Vector2f pos)
+Weapon::Weapon()
 {
 	this->name = "?";
-	this->pos = pos;
 	this->shape = sf::CircleShape(5.0f);
 	this->shape.setFillColor(sf::Color::Red);
-	this->shape.setPosition(pos);
 	this->velocity = 0.0f;
 	this->velocityX = 0.0f;
 	this->velocityY = 0.0f;
+}
+
+Weapon::~Weapon()
+{
+
 }
 
 void Weapon::shoot(float dt)

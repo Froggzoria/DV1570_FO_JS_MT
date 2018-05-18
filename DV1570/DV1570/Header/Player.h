@@ -3,6 +3,7 @@
 
 #include<SFML\Graphics.hpp>
 #include<iostream>
+#include"Weapon.h"
 
 extern "C" {
 #include <lua.h>
@@ -34,6 +35,7 @@ private:
 	sf::Sprite sprite;
 	int spriteWidth;
 	float speed = 180.0f;
+	Weapon wep;
 
 	sf::Vector2f displacement;
 	sf::Vector2i currentKeyFrame;

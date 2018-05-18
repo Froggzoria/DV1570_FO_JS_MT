@@ -6,7 +6,7 @@ using namespace std;
 
 static const float GRAVITY = 9.82f;
 static const float PI = 3.14f;
-class Weapon : public sf::Drawable
+class Weapon
 {
 private:
 	sf::Vector2f pos;
@@ -22,7 +22,8 @@ private:
 
 	string name;
 public:
-	Weapon(sf::Vector2f pos);
+	Weapon();
+	~Weapon();
 
 	void shoot(float dt);
 	void setValues();
