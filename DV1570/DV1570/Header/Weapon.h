@@ -15,8 +15,13 @@ private:
 	float velocity;
 	float velocityX;
 	float velocityY;
+	float massKG;
+	float k;
+
 	sf::Vector2f velocityVector;
 	sf::Vector2f normalizedVector;
+
+
 
 	void normalize();
 

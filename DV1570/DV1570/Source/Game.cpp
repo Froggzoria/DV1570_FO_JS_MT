@@ -67,7 +67,7 @@ void Game::Update(float dt, const sf::Window &win, lua_State *L)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i pos = sf::Mouse::getPosition(win);
-		int radius = 30;
+		int radius = 10;
 
 		int left = pos.x - radius;
 		int right = pos.x + radius;
