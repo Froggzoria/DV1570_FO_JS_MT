@@ -23,11 +23,13 @@
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\Game.h" />
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\Player.h" />
+    <ClInclude Include="Header\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
