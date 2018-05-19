@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\Collision.h" />
     <ClInclude Include="Header\Game.h" />
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\Player.h" />

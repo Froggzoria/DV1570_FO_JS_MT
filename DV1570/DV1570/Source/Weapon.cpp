@@ -45,6 +45,7 @@ void Weapon::shoot(float dt)
 void Weapon::setValues(const sf::Window &win, sf::Vector2f pos)
 {
 	//this is all very temp
+
 	sf::Vector2f dirVec = sf::Vector2f(sf::Mouse::getPosition(win).x - pos.x, sf::Mouse::getPosition(win).y - pos.y);
 	float lengthSquare = (dirVec.x * dirVec.x) + (dirVec.y * dirVec.y);
 	dirVec.x = (dirVec.x * dirVec.x) / lengthSquare;
@@ -76,6 +77,7 @@ void Weapon::update(float dt, sf::Vector2f pos, const sf::Window &win)
 	this->velocity = sqrt(pow(this->velocityX, 2) + pow(this->velocityY, 2));
 	this->shoot(dt);
 	this->shape.move(this->velocityX * dt, -this->velocityY * dt);
+
 }
 
 void Weapon::draw(sf::RenderTarget & target, sf::RenderStates & states) const
