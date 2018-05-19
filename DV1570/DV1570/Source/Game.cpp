@@ -62,7 +62,7 @@ void Game::Update(float dt, const sf::Window &win, lua_State *L)
 {
 	for (auto player : players)
 	{
-		player->update(dt, L);
+		player->update(dt, L, win);
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{

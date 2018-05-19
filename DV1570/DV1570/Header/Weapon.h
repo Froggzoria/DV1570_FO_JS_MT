@@ -31,8 +31,8 @@ public:
 	~Weapon();
 
 	void shoot(float dt);
-	void setValues();
-	void update(float dt, sf::Vector2f pos);
+	void setValues(const sf::Window &win, sf::Vector2f pos);
+	void update(float dt, sf::Vector2f pos, const sf::Window &win);
 
 	void draw(sf::RenderTarget &target, sf::RenderStates &states) const;
 };

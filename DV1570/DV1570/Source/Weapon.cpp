@@ -26,7 +26,7 @@ Weapon::~Weapon()
 
 void Weapon::shoot(float dt)
 {
-	//funderar på luftmotstånd här
+	//just some physics
 	float force = -this->k * this->velocity * this->velocity;
 
 	float a = force / this->massKG;
@@ -42,13 +42,20 @@ void Weapon::shoot(float dt)
 
 }
 
-void Weapon::setValues()
+void Weapon::setValues(const sf::Window &win, sf::Vector2f pos)
 {
-	float tempVelocity = 200.0f;
-	float tempAngle = 45.0f;
+	//this is all very temp
+	sf::Vector2f dirVec = sf::Vector2f(sf::Mouse::getPosition(win).x - pos.x, sf::Mouse::getPosition(win).y - pos.y);
+	float lengthSquare = (dirVec.x * dirVec.x) + (dirVec.y * dirVec.y);
+	dirVec.x = (dirVec.x * dirVec.x) / lengthSquare;
+	float rotAngle = acos(dirVec.x) *(180 / PI);
+
+	float tempVelocity = 150.0f;
+	//float tempAngle = 45.0f;
 	this->massKG = 2.0f;
-	this->velocityX = tempVelocity * cos(tempAngle * PI / 180);
-	this->velocityY = tempVelocity * sin(tempAngle * PI / 180);
+
+	this->velocityX = tempVelocity * cos(rotAngle *PI / 180);
+	this->velocityY = tempVelocity * sin(rotAngle *PI / 180);
 
 	this->velocityVector.x = this->velocityX;
 	this->velocityVector.y = this->velocityY;
@@ -57,12 +64,13 @@ void Weapon::setValues()
 	this->k = 0.5f * (1.293f * PI * std::pow((this->shape.getRadius() / 100), 2)) / (2 * this->massKG);
 }
 
-void Weapon::update(float dt, sf::Vector2f pos)
+void Weapon::update(float dt, sf::Vector2f pos, const sf::Window &win)
 {
+	//this function is mostly done i think
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
 		this->shape.setPosition(pos);
-		this->setValues();
+		this->setValues(win, pos);
 
 	}
 	this->velocity = sqrt(pow(this->velocityX, 2) + pow(this->velocityY, 2));

@@ -67,7 +67,7 @@ public:
 	Player(const char* name, unsigned int hp, sf::Vector2f pos);
 	~Player();
 	void Move(lua_State * L);
-	void update(float dt, lua_State * L);
+	void update(float dt, lua_State * L, const sf::Window &win);
 	
 };
 #endif

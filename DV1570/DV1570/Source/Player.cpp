@@ -33,7 +33,7 @@ Player::~Player()
 
 }
 
-void Player::update(float dt, lua_State * L)
+void Player::update(float dt, lua_State * L, const sf::Window &win)
 {
 	this->Move(L);
 
@@ -49,7 +49,7 @@ void Player::update(float dt, lua_State * L)
 			currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
 		keyFrameDuration = 0.0f;
 	}
-	this->wep.update(dt, sprite.getPosition());
+	this->wep.update(dt, sprite.getPosition(), win);
 }
 
 void Player::Move(lua_State * L)
