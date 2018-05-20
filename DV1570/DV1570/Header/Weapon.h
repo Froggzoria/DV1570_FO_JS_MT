@@ -3,49 +3,8 @@ extern "C" {
 #include <lualib.h>
 #include <lauxlib.h>
 }
-
-
-#ifndef WEAPON_H
-#define WEAPON_H
 #include<SFML\Graphics.hpp>
 #include<math.h>
-using namespace std;
-
-static const float GRAVITY = 9.82f;
-static const float PI = 3.14f;
-class Weapon
-{
-private:
-	
-	sf::Vector2f pos;
-	
-
-	float velocity;
-	float velocityX;
-	float velocityY;
-	float massKG;
-	float k;
-
-	sf::Vector2f velocityVector;
-	sf::Vector2f normalizedVector;
-
-
-
-	void normalize();
-
-	string name;
-public:
-	Weapon();
-	~Weapon();
-
-	void shoot(float dt);
-	void setValues(const sf::Window &win, sf::Vector2f pos);
-	void update(float dt, sf::Vector2f pos, const sf::Window &win);
-
-	void draw(sf::RenderTarget &target, sf::RenderStates &states) const;
-};
-#endif // !WEAPON_H
-
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
@@ -64,65 +23,69 @@ public:
 class Projectile
 {
 private:
-	sf::CircleShape body; //the projectiles body is just a circle
+	sf::Sprite* body; //the projectiles body is just a circle
 	sf::Vector2f dir; //initial direction of the projectile
+	sf::Vector2f posPlaceHolder;
 public:
 	//the position comes from the weapon/player pos
-	Projectile(sf::Vector2f pos, float radius, sf::Vector2f dir) 
+	Projectile(sf::Vector2f pos, sf::Vector2f dir)
 	{
-		this->body = sf::CircleShape(radius);
-		this->body.setFillColor(sf::Color::Red);
-		this->body.setPosition(pos);
+		this->posPlaceHolder = pos;
 		this->dir = dir;
 	}
-	~Projectile(){}
+	~Projectile() {}
 	void Move(sf::Vector2f displacement)
 	{
-		this->body.move(displacement);
+		this->body->move(displacement);
 	}
 	sf::Vector2f getDir() const { return dir; }
 	//it would be the best to let Lua handle the update logic
 	//and only have the collision detection on C++
 	//if we have collided we stop the Lua script from executing
-	void Render(lua_State *L, sf::RenderTarget & target, sf::RenderStates states) const
-	{
-		if (luaL_dofile(L, "Scripts//Projectile.lua") != EXIT_SUCCESS)
-			printf(lua_tostring(L, -1));
-		else
-		{
-			target.draw(this->body, states);
-			//resume thread
-			lua_getglobal(L, "ResumeUpdate");
-			lua_pushlightuserdata(L, (void*)this);
-			luaL_setmetatable(L, LUA_PROJECTILE);
-			if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
-			{
-				printf(lua_tostring(L, -1));
-				printf("\n");
-			}
-		}
-		
-	}
-	
-	sf::Vector3f getPosAndRadius() const
-	{
-		sf::Vector2f pos = this->body.getPosition();
-		return sf::Vector3f(pos.x, pos.y, this->body.getRadius());
-	}
+	void Render(lua_State *L, sf::RenderTarget & target, sf::RenderStates states) const;
+	void setSpritePtr(sf::Sprite*ptr) { body = ptr; }
+	sf::Vector3f getCenterPosAndRadius() const;
 };
 #endif
+
+#ifndef WEAPON_H
+#define WEAPON_H
+
+using namespace std;
+
+class Weapon
+{
+private:
+	sf::Texture m_texture;
+	sf::Sprite m_sprite;
+	Projectile * currentProjectile;
+public:
+	bool hasProjectile = false;
+	Weapon();
+	~Weapon();
+	void Update(lua_State *L);
+	void setNewProjectilePtr(Projectile * p, sf::Vector2f pos) { 
+		hasProjectile = true;
+		currentProjectile = p;
+		m_sprite.setPosition(pos);
+		currentProjectile->setSpritePtr(&m_sprite);
+	}
+	void draw(lua_State *L, sf::RenderTarget & target, sf::RenderStates states) const;
+};
+#endif // !WEAPON_H
+
+
 
 static int Projectile_new(lua_State* L)
 {
 	float xPos = lua_tonumber(L, 1);
 	float yPos = lua_tonumber(L, 2);
-	float radius = lua_tonumber(L, 3);
-	float dirX = lua_tonumber(L, 4);
-	float dirY = lua_tonumber(L, 5);
+	float dirX = lua_tonumber(L, 3);
+	float dirY = lua_tonumber(L, 4);
 
-	lua_pop(L, 5);
+	lua_pop(L, 4);
 
-	Projectile* p = new Projectile(sf::Vector2f(xPos, yPos), radius, sf::Vector2f(dirX, dirY));
+	Projectile* p = new Projectile(sf::Vector2f(xPos, yPos), sf::Vector2f(dirX, dirY));
 	lua_pushlightuserdata(L, (void*)p);
 	luaL_setmetatable(L, LUA_PROJECTILE);
 
@@ -165,8 +128,8 @@ static int Projectile_getpos(lua_State* L)
 	if (p == NULL)
 		return 0;
 
-	lua_pushnumber(L, p->getPosAndRadius().x);
-	lua_pushnumber(L, p->getPosAndRadius().y);
+	lua_pushnumber(L, p->getCenterPosAndRadius().x);
+	lua_pushnumber(L, p->getCenterPosAndRadius().y);
 
 	return 2;
 }
@@ -176,7 +139,7 @@ static int Projectile_getradius(lua_State *L)
 	Projectile *p = (Projectile *)lua_touserdata(L, 1);
 	if (p == NULL)
 		return 0;
-	lua_pushnumber(L, p->getPosAndRadius().z);
+	lua_pushnumber(L, p->getCenterPosAndRadius().z);
 	return 1;
 }
 

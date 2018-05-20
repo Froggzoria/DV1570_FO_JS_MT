@@ -28,3 +28,4 @@ end
 
 print("Number of Players: " .. #PLAYERS)
 
+CAN_SHOOT = true
