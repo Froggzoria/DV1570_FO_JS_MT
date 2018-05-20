@@ -27,6 +27,8 @@ extern "C" {
 #define LUA_PLAYER_GETDISVECT "GetDisVec"
 #define LUA_PLAYER_MOVESPRITE "MoveSprite"
 #define LUA_PLAYER_GETPOS "GetPos"
+#define LUA_PLAYER_GETCENTERPOS "GetCenterPos"
+#define LUA_PLAYER_ISTOUCHINGGROUND "IsTouchingGround"
 
 using namespace std;
 class Player
@@ -37,7 +39,6 @@ private:
 	int spriteWidth;
 	float speed = 180.0f;
 	Weapon wep;
-	Projectile *projectile = nullptr;
 
 	sf::Vector2f displacement;
 	sf::Vector2i currentKeyFrame;
@@ -45,6 +46,7 @@ private:
 	float animationSpeed;
 	float keyFrameDuration;
 	sf::Clock m_timer;
+	sf::Clock m_timer2;
 
 	string name;
 	unsigned int hp;
@@ -52,6 +54,8 @@ private:
 	bool drawConvexShape = false;
 	sf::ConvexShape coneShape;
 	float angle = 0.17f;
+
+	bool m_isTouchingGround = true;
 public:
 	//to modify this object in Lua we create set and get functions
 	//for all the members we want to be modified
@@ -70,12 +74,15 @@ public:
 	float getMoveSpeed() { return this->speed; }
 	unsigned int getHP() { return this->hp; }
 	sf::Vector2f getPos() const { return this->sprite.getPosition(); }
+	sf::Vector2f getCenterPos() const;
+	bool isTouchingGround() const { return m_isTouchingGround; }
 
 	void draw(lua_State * L, sf::RenderTarget &target, sf::RenderStates states) const;
 	Player(const char* name, unsigned int hp, sf::Vector2f pos);
 	~Player();
-	void Move(lua_State * L);
+	void OnMove(lua_State * L);
 	void OnShoot(lua_State * L, const sf::Window &win);
+	void OnJump(lua_State * L);
 	void update(float dt, lua_State * L, const sf::Window &win);
 	
 	void calculateConvexShape(double multiplier, const sf::Window &win);
@@ -247,7 +254,28 @@ static int Player_getpos(lua_State * L)
 	return 0;
 }
 
+static int Player_getcenterpos(lua_State * L)
+{
+	Player *p = (Player*)lua_touserdata(L, 1);
+	if (p != NULL)
+	{
+		sf::Vector2f pos = p->getCenterPos();
+		lua_pushnumber(L, pos.x);
+		lua_pushnumber(L, pos.y);
+		return 2;
+	}
+	return 0;
+}
 
+static int Player_istouchingground(lua_State *L) 
+{
+	Player *p = (Player*)lua_touserdata(L, 1);
+	if (!p)
+		return 0;
+
+	lua_pushboolean(L, p->isTouchingGround());
+	return 1;
+}
 
 static void register_player(lua_State * L)
 {
@@ -270,5 +298,7 @@ static void register_player(lua_State * L)
 	lua_pushcfunction(L, Player_getHP); lua_setfield(L, -2, LUA_PLAYER_GETHP);
 	lua_pushcfunction(L, Player_moveSprite); lua_setfield(L, -2, LUA_PLAYER_MOVESPRITE);
 	lua_pushcfunction(L, Player_getpos); lua_setfield(L, -2, LUA_PLAYER_GETPOS);
+	lua_pushcfunction(L, Player_getcenterpos); lua_setfield(L, -2, LUA_PLAYER_GETCENTERPOS);
+	lua_pushcfunction(L, Player_istouchingground); lua_setfield(L, -2, LUA_PLAYER_ISTOUCHINGGROUND);
 	lua_pop(L, 1);
 }

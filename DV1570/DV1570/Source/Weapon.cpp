@@ -1,20 +1,13 @@
 #include"weapon.h"
 
-void Weapon::normalize()
-{
-	float magnitude = sqrt((this->velocityVector.x * this->velocityVector.x) + (this->velocityVector.y * this->velocityVector.y));
-	this->normalizedVector.y = this->velocityVector.y / magnitude;
-	this->normalizedVector.x = this->velocityVector.x / magnitude;
-}
-
 Weapon::Weapon()
 {
-	this->name = "?";
-	this->velocity = 0.0f;
-	this->velocityX = 0.0f;
-	this->velocityY = 0.0f;
-	this->k = 0.0f;
-	this->massKG = 0.0f;
+	sf::String filepath = "..//Resources//grenade.png";
+	if (!this->m_texture.loadFromFile(filepath))
+		printf("Unable to load grenade texture\n");
+	m_sprite.setTexture(m_texture);
+	m_sprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
+	m_sprite.setOrigin(16.f, 16.f);
 }
 
 Weapon::~Weapon()
@@ -22,26 +15,17 @@ Weapon::~Weapon()
 
 }
 
-void Weapon::shoot(float dt)
+
+
+void Weapon::draw(lua_State *L, sf::RenderTarget & target, sf::RenderStates states) const
 {
-	//just some physics
-	float force = -this->k * this->velocity * this->velocity;
-
-	float a = force / this->massKG;
-	float retardationX = a * -this->normalizedVector.x;
-	float retardationY = a * -this->normalizedVector.y + GRAVITY;
-
-	this->velocityX -= retardationX * dt;
-	this->velocityY -= retardationY * dt;
-
-	this->velocityVector.x = this->velocityX;
-	this->velocityVector.y = this->velocityY;
-	this->normalize();
-
+	if (currentProjectile)
+		currentProjectile->Render(L, target, states);
 }
 
-void Weapon::setValues(const sf::Window &win, sf::Vector2f pos)
+void Weapon::Update(lua_State *L)
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	//this is all very temp
 
@@ -69,16 +53,37 @@ void Weapon::setValues(const sf::Window &win, sf::Vector2f pos)
 	//this->normalize();
 
 	//this->k = 0.5f * (1.293f * PI * std::pow((this->shape.getRadius() / 100), 2)) / (2 * this->massKG);
+=======
+	lua_getglobal(L, "REMOVE_PROJECTILE");
+	if (lua_toboolean(L, 1))
+	{
+		hasProjectile = false;
+		this->currentProjectile = nullptr;
+		lua_pushboolean(L, false);
+		lua_setglobal(L, "REMOVE_PROJECTILE");
+	}
+>>>>>>> Jakob
 }
 
-void Weapon::update(float dt, sf::Vector2f pos, const sf::Window &win)
-{
-	//this function is mostly done i think
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-	{
-		this->setValues(win, pos);
 
+void Projectile::Render(lua_State *L, sf::RenderTarget & target, sf::RenderStates states) const
+{
+	if (luaL_dofile(L, "Scripts//Projectile.lua") != EXIT_SUCCESS)
+		printf(lua_tostring(L, -1));
+	else
+	{
+		target.draw(*this->body, states);
+		//resume thread
+		lua_getglobal(L, "ResumeUpdate");
+		lua_pushlightuserdata(L, (void*)this);
+		luaL_setmetatable(L, LUA_PROJECTILE);
+		if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
+		{
+			printf(lua_tostring(L, -1));
+			printf("\n");
+		}
 	}
+<<<<<<< HEAD
 	this->velocity = sqrt(pow(this->velocityX, 2) + pow(this->velocityY, 2));
 	this->shoot(dt);
 <<<<<<< HEAD
@@ -86,9 +91,16 @@ void Weapon::update(float dt, sf::Vector2f pos, const sf::Window &win)
 
 =======
 >>>>>>> Jakob
+=======
+>>>>>>> Jakob
 }
 
-void Weapon::draw(sf::RenderTarget & target, sf::RenderStates & states) const
+sf::Vector3f Projectile::getCenterPosAndRadius() const
 {
-	//target.draw(this->shape, states);
+	sf::Vector2f pos = this->body->getPosition();
+	sf::IntRect bounds = this->body->getTextureRect();
+	pos.x += bounds.width / 2;
+	pos.y += bounds.height / 2;
+	float radius = bounds.width / 2;
+	return sf::Vector3f(pos.x, pos.y, radius);
 }

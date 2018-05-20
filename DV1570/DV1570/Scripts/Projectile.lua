@@ -1,5 +1,6 @@
 
 function UpdateProjectile(projectile)
+	REMOVE_PROJECTILE = false
 	local mt = getmetatable(projectile)
 	local dirX, dirY = mt.GetDir(projectile)
 	local velX = dirX * PROJECTILE_SPEED
@@ -27,6 +28,7 @@ function UpdateProjectile(projectile)
 		mt.Move(projectile, offsetX, offsetY)
 		coroutine.yield()
 	end
+	REMOVE_PROJECTILE = true
 	print("Projectile thread dead now\n")
 end
 

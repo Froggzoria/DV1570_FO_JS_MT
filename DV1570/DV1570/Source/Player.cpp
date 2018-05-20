@@ -1,11 +1,18 @@
 #include "Player.h"
 
+sf::Vector2f Player::getCenterPos() const
+{
+	sf::Vector2f pos = sprite.getPosition();
+	sf::IntRect bounds = sprite.getTextureRect();
+	pos.x = pos.x + bounds.width / 2;
+	pos.y = pos.y + bounds.height / 2;
+	return pos;
+}
+
 void Player::draw(lua_State * L, sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
-	wep.draw(target, states);
-	if (projectile)
-		projectile->Render(L, target, states);
+	wep.draw(L, target, states);
 	if (drawConvexShape)
 		target.draw(this->coneShape, states);
 		
@@ -43,8 +50,10 @@ void Player::update(float dt, lua_State * L, const sf::Window &win)
 	if (luaL_dofile(L, "Scripts//Player.lua") != EXIT_SUCCESS)
 		printf(*lua_tostring(L, -1)+"\n");
 
-	this->Move(L);
-	this->OnShoot(L, win);
+	this->OnMove(L);
+	if (!this->wep.hasProjectile)
+		this->OnShoot(L, win);
+	this->OnJump(L);
 	//Update animation
 	if (keyFrameDuration >= animationSpeed)
 	{
@@ -57,7 +66,7 @@ void Player::update(float dt, lua_State * L, const sf::Window &win)
 			currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
 		keyFrameDuration = 0.0f;
 	}
-	this->wep.update(dt, sprite.getPosition(), win);
+	this->wep.Update(L);
 }
 
 void Player::calculateConvexShape(double multiplier, const sf::Window &win)
@@ -67,7 +76,7 @@ void Player::calculateConvexShape(double multiplier, const sf::Window &win)
 	if (multiplier > MAX_SPEED_MULTIPLIER)
 		multiplier = MAX_SPEED_MULTIPLIER;
 	sf::Vector2i cursorPos = sf::Mouse::getPosition(win);
-	sf::Vector2f playerPos = this->sprite.getPosition();
+	sf::Vector2f playerPos = this->getCenterPos();
 	sf::Vector2f direction = sf::Vector2f(cursorPos.x - playerPos.x, cursorPos.y - playerPos.y);
 	float length = sqrt(direction.x*direction.x + direction.y*direction.y);
 	direction.x = (direction.x / length) * scalingValue * multiplier;
@@ -88,7 +97,7 @@ void Player::calculateConvexShape(double multiplier, const sf::Window &win)
 	this->coneShape.setFillColor(color);
 }
 
-void Player::Move(lua_State * L)
+void Player::OnMove(lua_State * L)
 {
 	//only run the script on input
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
@@ -118,22 +127,22 @@ void Player::Move(lua_State * L)
 
 void Player::OnShoot(lua_State * L, const sf::Window &win)
 {
-	static bool spaceKeyPressed = false;
+	static bool fireKeyPressed = false;
 	static double projectile_multiplier = MIN_SPEED_MULTIPLIER;
 	double dt = m_timer.restart().asSeconds();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 	{
-		spaceKeyPressed = true;
+		fireKeyPressed = true;
 		projectile_multiplier += dt;
 		calculateConvexShape(projectile_multiplier, win);
 		drawConvexShape = true;
 	}
 		
 
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && spaceKeyPressed)
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::F) && fireKeyPressed)
 	{
-		spaceKeyPressed = false;
+		fireKeyPressed = false;
 		drawConvexShape = false;
 		if (projectile_multiplier > MAX_SPEED_MULTIPLIER)
 			projectile_multiplier = MAX_SPEED_MULTIPLIER;
@@ -156,14 +165,15 @@ void Player::OnShoot(lua_State * L, const sf::Window &win)
 		}
 		else
 		{
-			this->projectile = (Projectile *)lua_touserdata(L, -1);
+			Projectile *p = (Projectile *)lua_touserdata(L, -1);
+			this->wep.setNewProjectilePtr(p, this->getCenterPos());
 			lua_pop(L, 1);
 			if (luaL_dofile(L, "Scripts//Projectile.lua") != EXIT_SUCCESS)
 				printf(lua_tostring(L, -1));
 			else
 			{
 				lua_getglobal(L, "RunUpdateThread");
-				lua_pushlightuserdata(L, (void*)projectile);
+				lua_pushlightuserdata(L, (void*)p);
 				luaL_setmetatable(L, LUA_PROJECTILE);
 				if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
 				{
@@ -173,6 +183,39 @@ void Player::OnShoot(lua_State * L, const sf::Window &win)
 			}
 
 		}
+
+	}
+}
+
+void Player::OnJump(lua_State * L)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_isTouchingGround)
+	{
+		m_isTouchingGround = false;
+		lua_getglobal(L, "CreateJumpThread");
+		lua_pushlightuserdata(L, (void*)this);
+		luaL_setmetatable(L, LUA_PLAYER);
+		if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
+		{
+			printf(lua_tostring(L, -1));
+			printf("\n");
+		}
+	}
+	if (!m_isTouchingGround)
+	{
+		
+		lua_getglobal(L, "ResumeJumpThread");
+		lua_pushlightuserdata(L, (void*)this);
+		luaL_setmetatable(L, LUA_PLAYER);
+		if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
+		{
+			printf(lua_tostring(L, -1));
+			printf("\n");
+		}
+		
+		sf::Vector2f pos = this->getCenterPos();
+		if (pos.y > 500)
+			m_isTouchingGround = true;
 
 	}
 }

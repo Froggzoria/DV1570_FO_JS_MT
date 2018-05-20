@@ -37,6 +37,10 @@ int main()
 	lua_setglobal(L, "WINDOW_HEIGHT");
 	lua_pushnumber(L, LUA_GRAVITY);
 	lua_setglobal(L, "GRAVITY");
+	lua_pushnumber(L, 50.f);
+	lua_setglobal(L, "PLAYER_VELOCITY");
+	lua_pushnumber(L, 0.0f);
+	lua_setglobal(L, "PLAYER_OFFSET_Y");
 
 
 	while (window.isOpen())
