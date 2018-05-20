@@ -20,6 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Header\EditorMap.cpp" />
+    <ClCompile Include="Source\Editor.cpp" />
+    <ClCompile Include="Source\Minimap.cpp" />
+    <ClCompile Include="Source\SubState.cpp" />
+    <ClCompile Include="Source\GameState.cpp" />
+    <ClCompile Include="Source\MainMenuState.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -28,9 +34,17 @@
   <ItemGroup>
     <ClInclude Include="Header\Collision.h" />
     <ClInclude Include="Header\Game.h" />
+    <ClInclude Include="Header\EditorMap.h" />
+    <ClInclude Include="Header\Editor.h" />
+    <ClInclude Include="Header\GameState.h" />
+    <ClInclude Include="Header\MainMenuState.h" />
+    <ClInclude Include="Header\Map.h" />
+    <ClInclude Include="Header\Minimap.h" />
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\Player.h" />
     <ClInclude Include="Header\Weapon.h" />
+    <ClInclude Include="Header\SubState.h" />
+    <ClInclude Include="Header\State.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

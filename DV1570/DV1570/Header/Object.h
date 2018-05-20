@@ -3,11 +3,12 @@
 #define _OBJECT_H
 #include <SFML\Graphics.hpp>
 
-class Object
+class Object : public sf::Drawable
 {
 public:
 	Object();
 	Object(std::string pathToTexture, sf::IntRect area = sf::IntRect(), sf::Vector2f position = sf::Vector2f(0, 0));
+	Object(const Object &other);
 	~Object();
 	sf::Sprite* getSpritePtr();
 	void update();
@@ -16,6 +17,7 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
+	virtual void draw(sf::RenderTarget &window, sf::RenderStates states) const;
+
 };
 #endif //!_OBJECT_H
-

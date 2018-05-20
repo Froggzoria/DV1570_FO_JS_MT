@@ -4,3 +4,9 @@
 DV1570/\.vs/DV1570/v15/\.suo
 
 DV1570/\.vs/DV1570/v15/
+
+DV1570/DV1570/x64/Debug/
+
+*.log
+
+DV1570/x64/Debug/
