@@ -27,7 +27,7 @@ if levelFile then
 			print(x .. " " .. y)
 			local newSpawnPoint = SpawnPoint(x, y)
 			table.insert(SPAWNPOINTS, newSpawnPoint)
-		elseif type == "Sand" or type == "Boulder" then
+		elseif type == "GameTile" then
 		--create a TileObject with boolean TRUE for indestructable
 			local name, x, y = line:match("(%a+) (%d+) (%d+)")
 			print(name .. " " .. x .. " " .. y)
