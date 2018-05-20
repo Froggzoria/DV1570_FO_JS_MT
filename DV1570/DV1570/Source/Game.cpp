@@ -98,40 +98,43 @@ bool Game::init(lua_State * L, std::string script)
 
 void Game::Update(float dt, const sf::Window &win, lua_State *L)
 {
-	for (auto player : players)
-	{
-		player->update(dt, L, win);
-	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		sf::Vector2i pos = sf::Mouse::getPosition(win);
-		int radius = 10;
 
-		int left = pos.x - radius;
-		int right = pos.x + radius;
-		int top = pos.y - radius;
-		int bottom = pos.y + radius;
-
-
-		sf::Image image = backgroundTex.copyToImage();
-		sf::Vector2u imageSize = image.getSize();
-		for (int i = top; i < bottom; i++)
+		for (auto player : players)
 		{
-			for (int k = left; k < right; k++)
+			player->update(dt, L, win);
+
+		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i pos = sf::Mouse::getPosition(win);
+			int radius = 10;
+
+			int left = pos.x - radius;
+			int right = pos.x + radius;
+			int top = pos.y - radius;
+			int bottom = pos.y + radius;
+
+
+			sf::Image image = backgroundTex.copyToImage();
+			sf::Vector2u imageSize = image.getSize();
+			for (int i = top; i < bottom; i++)
 			{
-				if ((i >= 0 && i < imageSize.y) && (k >= 0 && k < imageSize.x))
+				for (int k = left; k < right; k++)
 				{
-					double dist = pow(pos.x - k, 2) + pow(pos.y - i, 2);
-					if (dist <= pow(radius, 2))
+					if ((i >= 0 && i < imageSize.y) && (k >= 0 && k < imageSize.x))
 					{
-						sf::Color pixel = image.getPixel(k, i);
-						pixel.a = 0;
-						image.setPixel(k, i, pixel);
+						double dist = pow(pos.x - k, 2) + pow(pos.y - i, 2);
+						if (dist <= pow(radius, 2))
+						{
+							sf::Color pixel = image.getPixel(k, i);
+							pixel.a = 0;
+							image.setPixel(k, i, pixel);
+						}
 					}
 				}
 			}
+			backgroundTex.update(image);
+			backgroundSprite.setTexture(backgroundTex);
 		}
-		backgroundTex.update(image);
-		backgroundSprite.setTexture(backgroundTex);
-	}
+		
 }

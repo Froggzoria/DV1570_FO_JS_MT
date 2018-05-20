@@ -22,8 +22,14 @@ int main()
 	Editor editor(window);
 	int test;
 
+<<<<<<< Updated upstream
 	GameTile testTile("Sand", 40, 40);
 	GameTile testTile2("Boulder", 80, 80);
+=======
+	GameTile testTile("Sand", 10, 10);
+	GameTile testTile2("Boulder", 50, 50);
+	GameTile testTle3("Sand", 100, 100);
+>>>>>>> Stashed changes
 
 	std::cout << "1. Game" << std::endl;
 	std::cout << "2. Editor" << std::endl;
