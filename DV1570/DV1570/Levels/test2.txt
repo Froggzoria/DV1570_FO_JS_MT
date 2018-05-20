@@ -1,0 +1,36 @@
+Player Max 100 200 400
+Sand 40 440
+Sand 200 400
+Sand 440 400
+Sand 560 280
+Sand 360 200
+Sand 320 360
+Sand 400 440
+Sand 600 440
+Sand 720 400
+Sand 720 320
+Sand 640 400
+Sand 600 400
+Sand 520 440
+Sand 480 440
+Sand 440 440
+Sand 360 440
+Sand 280 440
+Sand 240 440
+Sand 160 440
+Sand 120 440
+Sand 40 400
+Boulder 40 360
+Boulder 120 360
+Boulder 200 400
+Boulder 400 320
+Boulder 560 280
+Boulder 640 320
+Boulder 680 400
+Boulder 720 360
+Spawn 200 360
+Spawn 560 240
+UTILITY
+800
+480
+EOF

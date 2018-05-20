@@ -33,7 +33,7 @@ private:
 public:
 	Game();
 
-	bool init(lua_State * L, std::string script);
+	bool init(lua_State * L);
 
 	void Update(float dt, const sf::Window &win, lua_State *L);
 };

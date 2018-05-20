@@ -77,10 +77,10 @@ Game::Game()
 	backgroundSprite.setTexture(backgroundTex);
 }
 
-bool Game::init(lua_State * L, std::string script)
+bool Game::init(lua_State * L)
 {
 	this->L = L;
-	if (luaL_dofile(L, script.c_str()) != EXIT_SUCCESS)
+	if (luaL_dofile(L, "Scripts//Game.lua") != EXIT_SUCCESS)
 	{
 		printf(lua_tostring(L, -1));
 		lua_pop(L, 1);
