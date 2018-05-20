@@ -52,9 +52,9 @@ private:
 	std::map<const sf::Texture*, sf::Uint8*> Bitmasks;
 };
 
-BitmaskManager Bitmasks;
+static BitmaskManager Bitmasks;
 
-bool pixelPerfectTest(const sf::Sprite &objOne, const sf::Sprite &objTwo, sf::Uint8 alphaLimit)
+inline bool pixelPerfectTest(const sf::Sprite &objOne, const sf::Sprite &objTwo, sf::Uint8 alphaLimit)
 {
 	
 		sf::FloatRect Intersection;

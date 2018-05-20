@@ -36,7 +36,11 @@ int main()
 	register_projectile(L);
 	register_gametile(L);
 
+<<<<<<< Updated upstream
 	lua_pushstring(L, "Levels//TestMap.txt");
+=======
+	lua_pushstring(L, "Levels/Jakob.txt");
+>>>>>>> Stashed changes
 	lua_setglobal(L, "LEVEL_PATH");
 
 	if (!game.init(L, "Scripts//Game.lua"))

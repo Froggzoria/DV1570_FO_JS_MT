@@ -6,6 +6,7 @@
 #include"Player.h"
 #include "SpawnPoint.h"
 #include "GameTile.h"
+#include"Collision.h"
 #include <vector>
 
 extern "C"

@@ -1,0 +1,25 @@
+Player Max 100 200 400
+Boulder 0 440
+Boulder 40 440
+Boulder 80 440
+Boulder 120 440
+Boulder 200 440
+Boulder 160 440
+Boulder 280 440
+Boulder 240 440
+Boulder 320 440
+Boulder 360 440
+Boulder 400 440
+Boulder 440 440
+Boulder 520 440
+Boulder 480 440
+Boulder 560 440
+Boulder 600 440
+Boulder 640 440
+Boulder 680 440
+Boulder 720 440
+Boulder 760 440
+UTILITY
+800
+480
+EOF
