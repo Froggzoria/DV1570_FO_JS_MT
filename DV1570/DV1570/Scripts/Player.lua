@@ -33,3 +33,23 @@ function MovePlayer(player)
 
 	return 
 end
+
+function OnShoot(player, cursorX, cursorY)
+	local mt = getmetatable(player)
+	local pX, pY = mt.GetPos(player)
+
+	local dirX = cursorX - pX
+	local dirY = cursorY - pY
+
+	local length = (dirX^2 + dirY^2)^0.5
+
+	dirX = dirX / length;
+	dirY = dirY / length;
+
+	local radius = 5.0
+
+	projectile = Projectile(pX, pY, radius, dirX, dirY)
+
+	return projectile
+end
+

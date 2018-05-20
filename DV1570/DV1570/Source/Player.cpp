@@ -1,9 +1,14 @@
 #include "Player.h"
 
-void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void Player::draw(lua_State * L, sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
 	wep.draw(target, states);
+	if (projectile)
+		projectile->Render(L, target, states);
+	if (drawConvexShape)
+		target.draw(this->coneShape, states);
+		
 }
 
 Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)
@@ -35,8 +40,11 @@ Player::~Player()
 
 void Player::update(float dt, lua_State * L, const sf::Window &win)
 {
-	this->Move(L);
+	if (luaL_dofile(L, "Scripts//Player.lua") != EXIT_SUCCESS)
+		printf(*lua_tostring(L, -1)+"\n");
 
+	this->Move(L);
+	this->OnShoot(L, win);
 	//Update animation
 	if (keyFrameDuration >= animationSpeed)
 	{
@@ -50,6 +58,34 @@ void Player::update(float dt, lua_State * L, const sf::Window &win)
 		keyFrameDuration = 0.0f;
 	}
 	this->wep.update(dt, sprite.getPosition(), win);
+}
+
+void Player::calculateConvexShape(double multiplier, const sf::Window &win)
+{
+	static const int nrOfConePoints = 4;
+	static const float scalingValue = 12.0;
+	if (multiplier > MAX_SPEED_MULTIPLIER)
+		multiplier = MAX_SPEED_MULTIPLIER;
+	sf::Vector2i cursorPos = sf::Mouse::getPosition(win);
+	sf::Vector2f playerPos = this->sprite.getPosition();
+	sf::Vector2f direction = sf::Vector2f(cursorPos.x - playerPos.x, cursorPos.y - playerPos.y);
+	float length = sqrt(direction.x*direction.x + direction.y*direction.y);
+	direction.x = (direction.x / length) * scalingValue * multiplier;
+	direction.y = (direction.y / length) * scalingValue * multiplier;
+	this->coneShape.setPointCount(nrOfConePoints);
+	this->coneShape.setPoint(0, playerPos);
+	sf::Vector2f tempDir;
+
+	tempDir.x = cos(angle)*direction.x - sin(angle)*direction.y;
+	tempDir.y = sin(angle)*direction.x + cos(angle)*direction.y;
+	coneShape.setPoint(1, playerPos + tempDir);
+	coneShape.setPoint(2, playerPos + direction);
+	tempDir.x = cos(-angle)*direction.x - sin(-angle)*direction.y;
+	tempDir.y = sin(-angle)*direction.x + cos(-angle)*direction.y;
+	coneShape.setPoint(3, playerPos + tempDir);
+
+	sf::Color color((2 / 3 * 255 + 1 / multiplier * 255), 0, 0);
+	this->coneShape.setFillColor(color);
 }
 
 void Player::Move(lua_State * L)
@@ -71,9 +107,72 @@ void Player::Move(lua_State * L)
 
 		lua_getglobal(L, "MovePlayer");
 		lua_pushlightuserdata(L, (void*)this);
+		//ALWYAS SET THE METATABLE WE ARE GOING TO NEED BEFORE RUNNING THE SCRIPT
+		luaL_setmetatable(L, LUA_PLAYER);
 		if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
 		{
-			printf(lua_tostring(L, -1));
+			printf((*lua_tostring(L, -1)+"\n"));
 		}
+	}
+}
+
+void Player::OnShoot(lua_State * L, const sf::Window &win)
+{
+	static bool spaceKeyPressed = false;
+	static double projectile_multiplier = MIN_SPEED_MULTIPLIER;
+	double dt = m_timer.restart().asSeconds();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		spaceKeyPressed = true;
+		projectile_multiplier += dt;
+		calculateConvexShape(projectile_multiplier, win);
+		drawConvexShape = true;
+	}
+		
+
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && spaceKeyPressed)
+	{
+		spaceKeyPressed = false;
+		drawConvexShape = false;
+		if (projectile_multiplier > MAX_SPEED_MULTIPLIER)
+			projectile_multiplier = MAX_SPEED_MULTIPLIER;
+
+		lua_pushnumber(L, (projectile_multiplier*PROJECTILE_SPEED_CONSTANT));
+		lua_setglobal(L, "PROJECTILE_SPEED");
+		projectile_multiplier = MIN_SPEED_MULTIPLIER;
+
+		lua_getglobal(L, "OnShoot");
+		lua_pushlightuserdata(L, (void*)this);
+		//ALWYAS SET THE METATABLE WE ARE GOING TO NEED BEFORE RUNNING THE SCRIPT
+		luaL_setmetatable(L, LUA_PLAYER);
+		sf::Vector2i cursorPos = sf::Mouse::getPosition(win);
+		lua_pushnumber(L, cursorPos.x);
+		lua_pushnumber(L, cursorPos.y);
+		if (lua_pcall(L, 3, 1, 0) != EXIT_SUCCESS)
+		{
+			printf(lua_tostring(L, -1));
+			printf("\n");
+		}
+		else
+		{
+			this->projectile = (Projectile *)lua_touserdata(L, -1);
+			lua_pop(L, 1);
+			if (luaL_dofile(L, "Scripts//Projectile.lua") != EXIT_SUCCESS)
+				printf(lua_tostring(L, -1));
+			else
+			{
+				lua_getglobal(L, "RunUpdateThread");
+				lua_pushlightuserdata(L, (void*)projectile);
+				luaL_setmetatable(L, LUA_PROJECTILE);
+				if (lua_pcall(L, 1, 0, 0) != EXIT_SUCCESS)
+				{
+					printf(lua_tostring(L, -1));
+					printf("\n");
+				}
+			}
+
+		}
+
 	}
 }

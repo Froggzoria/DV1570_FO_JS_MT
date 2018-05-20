@@ -26,6 +26,7 @@ extern "C" {
 #define LUA_PLAYER_SETDISVECT "SetDisVec"
 #define LUA_PLAYER_GETDISVECT "GetDisVec"
 #define LUA_PLAYER_MOVESPRITE "MoveSprite"
+#define LUA_PLAYER_GETPOS "GetPos"
 
 using namespace std;
 class Player
@@ -36,15 +37,21 @@ private:
 	int spriteWidth;
 	float speed = 180.0f;
 	Weapon wep;
+	Projectile *projectile = nullptr;
 
 	sf::Vector2f displacement;
 	sf::Vector2i currentKeyFrame;
 	sf::Vector2i keyFrameSize;
 	float animationSpeed;
 	float keyFrameDuration;
+	sf::Clock m_timer;
 
 	string name;
 	unsigned int hp;
+
+	bool drawConvexShape = false;
+	sf::ConvexShape coneShape;
+	float angle = 0.17f;
 public:
 	//to modify this object in Lua we create set and get functions
 	//for all the members we want to be modified
@@ -62,13 +69,16 @@ public:
 	float getKeyFrameDur() { return this->keyFrameDuration; }
 	float getMoveSpeed() { return this->speed; }
 	unsigned int getHP() { return this->hp; }
+	sf::Vector2f getPos() const { return this->sprite.getPosition(); }
 
-	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+	void draw(lua_State * L, sf::RenderTarget &target, sf::RenderStates states) const;
 	Player(const char* name, unsigned int hp, sf::Vector2f pos);
 	~Player();
 	void Move(lua_State * L);
+	void OnShoot(lua_State * L, const sf::Window &win);
 	void update(float dt, lua_State * L, const sf::Window &win);
 	
+	void calculateConvexShape(double multiplier, const sf::Window &win);
 };
 #endif
 
@@ -224,6 +234,20 @@ static int Player_moveSprite(lua_State * L)
 	return 0;
 }
 
+static int Player_getpos(lua_State * L)
+{
+	Player *p = (Player*)lua_touserdata(L, 1);
+	if (p != NULL)
+	{
+		sf::Vector2f pos = p->getPos();
+		lua_pushnumber(L, pos.x);
+		lua_pushnumber(L, pos.y);
+		return 2;
+	}
+	return 0;
+}
+
+
 
 static void register_player(lua_State * L)
 {
@@ -245,5 +269,6 @@ static void register_player(lua_State * L)
 	lua_pushcfunction(L, Player_setHP); lua_setfield(L, -2, LUA_PLAYER_SETHP);
 	lua_pushcfunction(L, Player_getHP); lua_setfield(L, -2, LUA_PLAYER_GETHP);
 	lua_pushcfunction(L, Player_moveSprite); lua_setfield(L, -2, LUA_PLAYER_MOVESPRITE);
+	lua_pushcfunction(L, Player_getpos); lua_setfield(L, -2, LUA_PLAYER_GETPOS);
 	lua_pop(L, 1);
 }

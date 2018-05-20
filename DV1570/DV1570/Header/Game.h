@@ -19,7 +19,7 @@ private:
 	sf::Texture backgroundTex;
 	sf::Sprite backgroundSprite;
 	std::vector<Player*> players;
-
+	lua_State * L;
 
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
