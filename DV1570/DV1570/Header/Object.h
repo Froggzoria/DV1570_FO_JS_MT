@@ -8,6 +8,7 @@ class Object : public sf::Drawable
 public:
 	Object();
 	Object(std::string pathToTexture, sf::IntRect area = sf::IntRect(), sf::Vector2f position = sf::Vector2f(0, 0));
+	Object(const Object &other);
 	~Object();
 	sf::Sprite* getSpritePtr();
 	void update();

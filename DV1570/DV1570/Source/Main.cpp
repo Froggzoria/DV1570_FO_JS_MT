@@ -5,6 +5,7 @@
 
 int main()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Frogge Test");
 	std::stack<State*> gameStates;
 	
@@ -24,12 +25,14 @@ int main()
 				window.close();
 		}
 
+		editor.update(window);
 		window.clear(sf::Color::Black);
 		window.draw(editor);
 		window.draw(minimap);
 		window.display();
 	}
 
+	delete test;
 
 	return 0;
 }

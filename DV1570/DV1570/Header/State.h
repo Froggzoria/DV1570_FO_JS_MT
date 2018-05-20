@@ -2,7 +2,7 @@
 #include "SubState.h"
 #include <stack>
 
-class State
+class State : sf::Drawable
 {
 private:
 	virtual void _init(std::string pathToTexture, sf::IntRect area, sf::Vector2f position) = 0;
@@ -18,5 +18,4 @@ public:
 	virtual~State() {}
 
 	virtual void update(float dt) = 0;
-	virtual void draw() const = 0;
 };

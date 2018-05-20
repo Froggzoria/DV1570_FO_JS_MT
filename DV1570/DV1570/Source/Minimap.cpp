@@ -28,7 +28,7 @@ void Minimap::draw(sf::RenderTarget &window, sf::RenderStates states) const
 	// Render to minimap here
 	window.setView(m_minimapView);
 	// Draw the map to the minimap
-
+	
 	window.setView(window.getDefaultView());
 	
 	// Render remaining minimap elements
