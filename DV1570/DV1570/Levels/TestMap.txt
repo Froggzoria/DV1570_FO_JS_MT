@@ -1,4 +1,5 @@
 Player Max 100 200 400
+Player Frogge 100 200 400
 GameTile Sand 40 440
 GameTile Sand 0 440
 GameTile Sand 0 400

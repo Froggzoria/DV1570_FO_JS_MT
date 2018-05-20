@@ -25,6 +25,14 @@ private:
 	std::vector<GameTile*> gameTiles;
 	lua_State * L;
 
+	// Player turn tracker
+	int m_playerTurn;
+	float m_turnTime;
+	float m_turnLimit;
+	sf::Font m_font;
+	sf::Text m_playerTurnText;
+	sf::Text m_turnTimeText;
+
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 	void getPlayersFromLua(lua_State * L);

@@ -319,6 +319,7 @@ void EditorMap::saveLUA(std::string path)
 	{
 		// Destructible objects
 		save << "Player Max 100 200 400" << std::endl;
+		save << "Player Frogge 100 200 400" << std::endl;
 		//save << "Player Frogge 100 200 400" << std::endl;
 		for (auto tiles : m_mapTiles)
 		{
