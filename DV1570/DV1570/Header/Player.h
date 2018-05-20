@@ -75,6 +75,8 @@ public:
 	unsigned int getHP() { return this->hp; }
 	sf::Vector2f getPos() const { return this->sprite.getPosition(); }
 	sf::Vector2f getCenterPos() const;
+	sf::Sprite getSprite() const { return this->sprite; };
+	Weapon getWep() const { return this->wep; };
 	bool isTouchingGround() const { return m_isTouchingGround; }
 
 	void draw(lua_State * L, sf::RenderTarget &target, sf::RenderStates states) const;

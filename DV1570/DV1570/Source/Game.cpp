@@ -61,9 +61,14 @@ bool Game::init(lua_State * L, std::string script)
 
 void Game::Update(float dt, const sf::Window &win, lua_State *L)
 {
+	
 	for (auto player : players)
 	{
 		player->update(dt, L, win);
+		if (Collision::pixelPerfectTest(player->getSprite(), player->getWep().getWepSprite(), 800 * 600))
+		{
+			cout << "COLLISION " << endl;
+		}
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{

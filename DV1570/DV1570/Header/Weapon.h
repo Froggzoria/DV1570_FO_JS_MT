@@ -70,6 +70,7 @@ public:
 		m_sprite.setPosition(pos);
 		currentProjectile->setSpritePtr(&m_sprite);
 	}
+	sf::Sprite getWepSprite() const { return this->m_sprite; };
 	void draw(lua_State *L, sf::RenderTarget & target, sf::RenderStates states) const;
 };
 #endif // !WEAPON_H

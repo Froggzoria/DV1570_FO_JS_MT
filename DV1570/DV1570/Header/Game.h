@@ -4,6 +4,7 @@
 #include<iostream>
 #include <SFML\Graphics.hpp>
 #include"Player.h"
+#include"Collision.h"
 #include <vector>
 
 extern "C"
