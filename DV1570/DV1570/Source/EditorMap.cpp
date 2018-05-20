@@ -310,6 +310,48 @@ void EditorMap::loadMap(std::string path)
 	}
 }
 
+void EditorMap::saveLUA(std::string path)
+{
+	std::ofstream save;
+	save.open(path);
+
+	if (save.is_open())
+	{
+		// Destructible objects
+		save << "Player Max 100 200 400" << std::endl;
+		//save << "Player Frogge 100 200 400" << std::endl;
+		for (auto tiles : m_mapTiles)
+		{
+			save << "Sand" << " ";
+			save << tiles.pos.x << " ";
+			save << tiles.pos.y << std::endl;
+		}
+		// Indestructible objects
+		for (auto tiles : m_indestructibleTiles)
+		{
+			save << "Boulder" << " ";
+			save << tiles.pos.x << " ";
+			save << tiles.pos.y << std::endl;
+		}
+		for (auto spawn : m_playerSpawn)
+		{
+			save << "Spawn" << " ";
+			save << spawn.pos.x << " ";
+			save << spawn.pos.y << std::endl;
+		}
+		// Remaining variables
+		save << "UTILITY" << std::endl;
+		save << m_mapWidth << std::endl;
+		save << m_mapHeight << std::endl;
+		save << "EOF" << std::endl;
+		save.close();
+	}
+}
+
+void EditorMap::loadLUA(std::string path)
+{
+}
+
 void EditorMap::update(sf::RenderWindow &window)
 {
 

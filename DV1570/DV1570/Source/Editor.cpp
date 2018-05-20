@@ -227,7 +227,7 @@ void Editor::update(sf::RenderWindow &window)
 						path = "Levels/" + path;
 						path += ".txt";
 
-						m_map.saveMap(path);
+						m_map.saveLUA(path);
 					}
 					else
 					{
