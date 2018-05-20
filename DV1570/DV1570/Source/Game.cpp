@@ -12,6 +12,8 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(*tile);
 	}
+	target.draw(m_playerTurnText);
+	target.draw(m_turnTimeText);
 }
 
 void Game::getPlayersFromLua(lua_State * L)
@@ -69,18 +71,36 @@ void Game::getGameTilesFromLua(lua_State * L)
 
 Game::Game()
 {
-	sf::String fileName = "..//Resources//bg.jpg";
+	/*sf::String fileName = "..//Resources//bg.jpg";
 	if (!backgroundTex.loadFromFile(fileName))
 	{
 		std::cout << "ERROR: Background image could not be loaded.\n---" << std::endl;
 	}
-	backgroundSprite.setTexture(backgroundTex);
+	backgroundSprite.setTexture(backgroundTex);*/
+	m_font.loadFromFile("../Assets/Fonts/arial.ttf");
+	m_playerTurn = 0;
+	m_turnTime = 0.0f;
+	m_turnLimit = 30.0f;
+
+	// Player Turn Text
+	m_playerTurnText.setFont(m_font);
+	m_playerTurnText.setString("Player turn: " + std::to_string(m_playerTurn));
+	m_playerTurnText.setCharacterSize(30);
+	m_playerTurnText.setFillColor(sf::Color::Red);
+	m_playerTurnText.setPosition(sf::Vector2f(380, 550));
+
+	// Turn Time Text
+	m_turnTimeText.setFont(m_font);
+	m_turnTimeText.setString("Turn time remaining: " + std::to_string((int)(m_turnLimit - m_turnTime)));
+	m_turnTimeText.setCharacterSize(30);
+	m_turnTimeText.setFillColor(sf::Color::Red);
+	m_turnTimeText.setPosition(sf::Vector2f(380, 500));
 }
 
-bool Game::init(lua_State * L, std::string script)
+bool Game::init(lua_State * L)
 {
 	this->L = L;
-	if (luaL_dofile(L, script.c_str()) != EXIT_SUCCESS)
+	if (luaL_dofile(L, "Scripts//Game.lua") != EXIT_SUCCESS)
 	{
 		printf(lua_tostring(L, -1));
 		lua_pop(L, 1);
@@ -98,36 +118,33 @@ bool Game::init(lua_State * L, std::string script)
 
 void Game::Update(float dt, const sf::Window &win, lua_State *L)
 {
-
-	for (auto player : players)
+	m_turnTime += dt;
+	m_turnTimeText.setString("Turn time remaining: " + std::to_string((int)(m_turnLimit - m_turnTime)));
+	if (m_turnTime > m_turnLimit)
 	{
-		player->update(dt, L, win);
-
-		for (auto gameTile : gameTiles)
+		if (0 == m_playerTurn)
+		m_turnTime = 0.0f;
 		{
-			if (Collision::pixelPerfectTest(player->getSprite(), gameTile->getSprite(), 800 * 600))
-			{
-				cout << "HEllu" << endl;
-			}
+			m_playerTurn = 1;
+			m_playerTurnText.setString("Player turn: " + std::to_string(m_playerTurn));
+		}
+		else
+			m_playerTurn = 0;
+		{
+			m_playerTurnText.setString("Player turn: " + std::to_string(m_playerTurn));
+
 		}
 	}
-	
+	players[m_playerTurn]->update(dt, L, win);
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i pos = sf::Mouse::getPosition(win);
 		int radius = 10;
 
-		int left = pos.x - radius;
-		int right = pos.x + radius;
-		int top = pos.y - radius;
-		int bottom = pos.y + radius;
-
-
-		sf::Image image = backgroundTex.copyToImage();
-		sf::Vector2u imageSize = image.getSize();
-		for (int i = top; i < bottom; i++)
-		{
-			for (int k = left; k < right; k++)
+			sf::Image image = backgroundTex.copyToImage();
+			sf::Vector2u imageSize = image.getSize();
+			for (int i = top; i < bottom; i++)
 			{
 				if ((i >= 0 && i < imageSize.y) && (k >= 0 && k < imageSize.x))
 				{
@@ -141,7 +158,5 @@ void Game::Update(float dt, const sf::Window &win, lua_State *L)
 				}
 			}
 		}
-		backgroundTex.update(image);
-		backgroundSprite.setTexture(backgroundTex);
-	}
+		
 }

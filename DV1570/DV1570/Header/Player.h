@@ -68,6 +68,7 @@ public:
 	void moveSprite(sf::Vector2f displacement) { this->sprite.move(displacement); }
 
 	//--------GET---------
+	bool getHasProjectile() const { return wep.hasProjectile; }
 	const char* getname() { return this->name.c_str(); }
 	float getAnimationKey() { return this->currentKeyFrame.y; }
 	float getKeyFrameDur() { return this->keyFrameDuration; }
