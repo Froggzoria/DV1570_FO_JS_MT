@@ -220,9 +220,24 @@ void Editor::update(sf::RenderWindow &window)
 				if (xCoord == posX && yCoord == posY)
 				{
 					if (0 == i)
-						m_map.saveMap();
+					{
+						std::string path;
+						std::cout << "Save file as:" << std::endl;
+						std::cin >> path;
+						path = "Levels/" + path;
+						path += ".fmj";
+
+						m_map.saveMap(path);
+					}
 					else
-						m_map.loadMap("test.fmj");
+					{
+						std::string path;
+						std::cout << "Load file:" << std::endl;
+						std::cin >> path;
+						path = "Levels/" + path;
+						path += ".fmj";
+						m_map.loadMap(path);
+					}
 				}
 			}
 			posX = spawnPointSprite->getSpritePtr()->getPosition().x;

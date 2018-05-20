@@ -23,7 +23,7 @@ public:
 	void removeMapTile(sf::Vector2i mousePos);
 	void setPlayerSpawn(TileObject spawn);
 
-	void saveMap();
+	void saveMap(std::string path);
 	void loadMap(std::string path);
 
 	virtual void update(sf::RenderWindow &window);
