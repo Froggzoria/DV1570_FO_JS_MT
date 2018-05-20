@@ -12,6 +12,7 @@ extern "C" {
 #define WINDOW_HEIGHT 600
 #define LUA_GRAVITY -190
 
+#include "GameTile.h"
 
 int main()
 {
@@ -20,6 +21,9 @@ int main()
 	Game game;
 	Editor editor(window);
 	int test;
+
+	GameTile testTile("Sand", 10, 10);
+	GameTile testTile2("Boulder", 50, 50);
 
 	std::cout << "1. Game" << std::endl;
 	std::cout << "2. Editor" << std::endl;
@@ -53,6 +57,7 @@ int main()
 
 	while (window.isOpen())
 	{
+		
 		//better safe than sorry - Ol' Gramps
 		lua_pop(L, lua_gettop(L));
 		sf::Event event;
@@ -77,6 +82,9 @@ int main()
 			window.draw(game);
 		else
 			window.draw(editor);
+
+		window.draw(testTile);
+		window.draw(testTile2);
 		window.display();
 	}
 Exit:

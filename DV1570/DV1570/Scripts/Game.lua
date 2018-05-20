@@ -20,6 +20,15 @@ if levelFile then
 			local newPlayer =  Player(name, hp, x, y)
 			table.insert(PLAYERS, newPlayer)
 		end
+		if type == "Spawn" then
+		 --create a spawnpoint and insert to spawnppoint table
+		end
+		if type == "Boulder" then
+		--create a TileObject with boolean TRUE for indestructable
+		end
+		if type == "Ground" then
+		--cretae TileObject with boolean FALSE for indestructable
+		end
 	end
 else
 	error("BAD PATH - LEVEL NOT LOADED\n")

@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Header\EditorMap.cpp" />
     <ClCompile Include="Source\Editor.cpp" />
+    <ClCompile Include="Source\GameTile.cpp" />
     <ClCompile Include="Source\Minimap.cpp" />
     <ClCompile Include="Source\SubState.cpp" />
     <ClCompile Include="Source\GameState.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="Header\EditorMap.h" />
     <ClInclude Include="Header\Editor.h" />
     <ClInclude Include="Header\GameState.h" />
+    <ClInclude Include="Header\GameTile.h" />
     <ClInclude Include="Header\MainMenuState.h" />
     <ClInclude Include="Header\Map.h" />
     <ClInclude Include="Header\Minimap.h" />

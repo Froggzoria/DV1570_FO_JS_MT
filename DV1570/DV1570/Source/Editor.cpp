@@ -6,11 +6,11 @@ void Editor::_init(sf::RenderWindow &window)
 	std::vector<Object*> mapObjects;
 	// Initialize the different map tiles and objects
 	// Destructible objects
-	m_destructibleMapElements.push_back(new Object("D:/Liero/DV1570_FO_JS_MT/DV1570/Assets/platformerGraphicsDeluxe_Updated/Tiles/grassCenter.png"));
+	m_destructibleMapElements.push_back(new Object("../Assets/platformerGraphicsDeluxe_Updated/Tiles/grassCenter.png"));
 	for (auto obj : m_destructibleMapElements)
 		mapObjects.push_back(obj);
 	// Indestructible objects
-	m_indestructibleMapElements.push_back(new Object("D:/Liero/DV1570_FO_JS_MT/DV1570/Assets/platformerGraphicsDeluxe_Updated/Items/rock.png"));
+	m_indestructibleMapElements.push_back(new Object("../Assets/platformerGraphicsDeluxe_Updated/Items/rock.png"));
 	for (auto obj : m_indestructibleMapElements)
 		mapObjects.push_back(obj);
 
@@ -73,15 +73,15 @@ void Editor::_init(sf::RenderWindow &window)
 	m_rectangles[m_nrOfObjects - 1].setOutlineColor(sf::Color::Red);
 	m_rectangles[m_nrOfObjects - 1].setFillColor(sf::Color::Transparent);
 	m_rectangles[m_nrOfObjects - 1].setPosition(sf::Vector2f(outlineThickness + rectangleSize, windowHeight - rectangleSize - outlineThickness));
-	spawnPointSprite = new Object("D:/Liero/DV1570_FO_JS_MT/DV1570/Assets/platformerGraphicsDeluxe_Updated/Player/p1_front.png");
+	spawnPointSprite = new Object("../Assets/platformerGraphicsDeluxe_Updated/Player/p1_front.png");
 	spriteWidth = spawnPointSprite->getSpritePtr()->getLocalBounds().width;
 	spriteHeight = spawnPointSprite->getSpritePtr()->getLocalBounds().height;
 	spawnPointSprite->getSpritePtr()->setPosition(sf::Vector2f(m_rectangles[m_nrOfObjects - 1].getPosition().x, m_rectangles[m_nrOfObjects - 1].getPosition().y));
 	spawnPointSprite->getSpritePtr()->setScale(sf::Vector2f(rectangleSize / spriteWidth, rectangleSize / spriteHeight));
 	mapObjects.push_back(spawnPointSprite);
 
-	m_saveLoad.push_back(new Object("D:/Liero/DV1570_FO_JS_MT/DV1570/Assets/platformerGraphicsDeluxe_Updated/SaveLoad/Save.png"));
-	m_saveLoad.push_back(new Object("D:/Liero/DV1570_FO_JS_MT/DV1570/Assets/platformerGraphicsDeluxe_Updated/SaveLoad/Load.png"));
+	m_saveLoad.push_back(new Object("../Assets/platformerGraphicsDeluxe_Updated/SaveLoad/Save.png"));
+	m_saveLoad.push_back(new Object("../Assets/platformerGraphicsDeluxe_Updated/SaveLoad/Load.png"));
 
 	int rectVecSize = m_rectangles.size();
 
