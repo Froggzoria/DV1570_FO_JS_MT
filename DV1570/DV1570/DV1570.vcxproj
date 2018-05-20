@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,14 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\Collision.h" />
+    <ClInclude Include="Header\Game.h" />
     <ClInclude Include="Header\Object.h" />
+    <ClInclude Include="Header\Player.h" />
+    <ClInclude Include="Header\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="packages.config" />
+    <None Include="Scripts\Game.lua" />
+    <None Include="Scripts\Player.lua" />
+    <None Include="Scripts\Projectile.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -168,5 +179,14 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\lua.redist.5.3.4\build\native\lua.redist.targets" Condition="Exists('..\packages\lua.redist.5.3.4\build\native\lua.redist.targets')" />
+    <Import Project="..\packages\lua.5.3.4\build\native\lua.targets" Condition="Exists('..\packages\lua.5.3.4\build\native\lua.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\lua.redist.5.3.4\build\native\lua.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\lua.redist.5.3.4\build\native\lua.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\lua.5.3.4\build\native\lua.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\lua.5.3.4\build\native\lua.targets'))" />
+  </Target>
 </Project>

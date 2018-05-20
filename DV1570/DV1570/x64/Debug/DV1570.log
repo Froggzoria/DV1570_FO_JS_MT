@@ -1,4 +1,74 @@
-﻿  Object.cpp
+﻿  Weapon.cpp
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(81): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(82): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(83): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(84): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(104): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(105): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\source\weapon.cpp(65): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Player.cpp
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(81): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(82): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(83): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(84): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(104): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(105): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(64): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(72): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(95): warning C4244: 'initializing': conversion from 'lua_Number' to 'unsigned int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(96): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(97): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(140): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(164): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(188): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(212): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(213): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(236): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(237): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(82): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(83): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\source\player.cpp(96): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
+  Object.cpp
   Main.cpp
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(81): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(82): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(83): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(84): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(104): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(105): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(64): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(72): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(95): warning C4244: 'initializing': conversion from 'lua_Number' to 'unsigned int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(96): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(97): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(140): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(164): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(188): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(212): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(213): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(236): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(237): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\source\main.cpp(17): warning C4552: '|': operator has no effect; expected operator with side-effect
+  Game.cpp
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(81): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(82): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(83): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(84): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(104): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\weapon.h(105): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(64): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(72): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(95): warning C4244: 'initializing': conversion from 'lua_Number' to 'unsigned int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(96): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(97): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(140): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(164): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(188): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(212): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(213): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(236): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\header\player.h(237): warning C4244: 'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+d:\ny map för projekt\dv1570_fo_js_mt\dv1570\dv1570\source\game.cpp(85): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  DV1570.vcxproj -> C:\Users\mtlat\repos\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe
+  LINK : D:\Ny Map för projekt\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe not found or not built by the last incremental link; performing full link
+  DV1570.vcxproj -> D:\Ny Map för projekt\DV1570_FO_JS_MT\DV1570\x64\Debug\DV1570.exe
