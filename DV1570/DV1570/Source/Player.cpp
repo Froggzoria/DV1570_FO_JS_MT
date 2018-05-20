@@ -15,7 +15,6 @@ void Player::draw(lua_State * L, sf::RenderTarget & target, sf::RenderStates sta
 	wep.draw(L, target, states);
 	if (drawConvexShape)
 		target.draw(this->coneShape, states);
-		
 }
 
 Player::Player(const char* name, unsigned int hp, sf::Vector2f pos)

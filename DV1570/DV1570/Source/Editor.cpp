@@ -167,16 +167,19 @@ void Editor::update(sf::RenderWindow &window)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !keyPressedEditor)
 	{
 		sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
-
-		if (isPicked && mouseCoords.y < m_editorHUD.getPosition().y && m_newTile.type != m_destructibleMapElements.size() + m_indestructibleMapElements.size())
-		{
-			m_newTile.pos = sf::Vector2f((float)mouseCoords.x, (float)mouseCoords.y);
-			m_map.placeMapTile(m_newTile);
-		}
-		else if (isPicked && mouseCoords.y < m_editorHUD.getPosition().y && m_newTile.type == m_destructibleMapElements.size() + m_indestructibleMapElements.size())
-		{
-			m_newTile.pos = sf::Vector2f((float)mouseCoords.x, (float)mouseCoords.y);
-			m_map.setPlayerSpawn(m_newTile);
+		if (mouseCoords.y < m_editorHUD.getPosition().y && mouseCoords.y >= 0 && mouseCoords.x >= 0 && mouseCoords.x < window.getSize().x)
+		{//if (isPicked && mouseCoords.y < m_editorHUD.getPosition().y && m_newTile.type != m_destructibleMapElements.size() + m_indestructibleMapElements.size())
+			if (isPicked && m_newTile.type != m_destructibleMapElements.size() + m_indestructibleMapElements.size())
+			{
+				m_newTile.pos = sf::Vector2f((float)mouseCoords.x, (float)mouseCoords.y);
+				m_map.placeMapTile(m_newTile);
+			}
+			//else if (isPicked && mouseCoords.y < m_editorHUD.getPosition().y && m_newTile.type == m_destructibleMapElements.size() + m_indestructibleMapElements.size())
+			else if (isPicked && m_newTile.type == m_destructibleMapElements.size() + m_indestructibleMapElements.size())
+			{
+				m_newTile.pos = sf::Vector2f((float)mouseCoords.x, (float)mouseCoords.y);
+				m_map.setPlayerSpawn(m_newTile);
+			}
 		}
 		else
 		{
@@ -222,11 +225,15 @@ void Editor::update(sf::RenderWindow &window)
 					if (0 == i)
 					{
 						std::string path;
+						std::string editorPath;
 						std::cout << "Save file as:" << std::endl;
 						std::cin >> path;
 						path = "Levels/" + path;
+						editorPath = path + "editor";
+						editorPath += ".txt";
 						path += ".txt";
 
+						m_map.saveMap(editorPath);
 						m_map.saveLUA(path);
 					}
 					else
