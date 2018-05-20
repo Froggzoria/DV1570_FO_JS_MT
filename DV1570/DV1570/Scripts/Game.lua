@@ -20,6 +20,15 @@ if levelFile then
 			local newPlayer =  Player(name, hp, x, y)
 			table.insert(PLAYERS, newPlayer)
 		end
+		if "Spawn" == type then
+		
+		end
+		if "Boulder" == type then
+		
+		end
+		if "Ground" == type then
+		
+		end
 	end
 else
 	error("BAD PATH - LEVEL NOT LOADED\n")
