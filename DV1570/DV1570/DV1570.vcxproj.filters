@@ -50,5 +50,6 @@
     <None Include="packages.config" />
     <None Include="Scripts\Player.lua" />
     <None Include="Scripts\Game.lua" />
+    <None Include="Scripts\Projectile.lua" />
   </ItemGroup>
 </Project>

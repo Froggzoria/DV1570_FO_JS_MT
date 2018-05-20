@@ -6,7 +6,7 @@ void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(backgroundSprite, states);
 	for (auto player : players)
 	{
-		player->draw(target, states);
+		player->draw(this->L, target, states);
 	}
 	
 }
@@ -44,6 +44,7 @@ Game::Game()
 
 bool Game::init(lua_State * L, std::string script)
 {
+	this->L = L;
 	if (luaL_dofile(L, script.c_str()) != EXIT_SUCCESS)
 	{
 		printf(lua_tostring(L, -1));
@@ -73,6 +74,7 @@ void Game::Update(float dt, const sf::Window &win, lua_State *L)
 		int right = pos.x + radius;
 		int top = pos.y - radius;
 		int bottom = pos.y + radius;
+
 
 		sf::Image image = backgroundTex.copyToImage();
 		sf::Vector2u imageSize = image.getSize();

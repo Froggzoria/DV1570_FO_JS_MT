@@ -36,6 +36,7 @@
     <None Include="packages.config" />
     <None Include="Scripts\Game.lua" />
     <None Include="Scripts\Player.lua" />
+    <None Include="Scripts\Projectile.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
