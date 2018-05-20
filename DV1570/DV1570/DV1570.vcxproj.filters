@@ -45,10 +45,10 @@
     <ClCompile Include="Source\Minimap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Header\EditorMap.cpp">
+    <ClCompile Include="Source\GameTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameTile.cpp">
+    <ClCompile Include="Source\EditorMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header\GameTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\SpawnPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

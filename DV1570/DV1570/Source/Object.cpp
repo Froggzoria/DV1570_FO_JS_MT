@@ -27,7 +27,7 @@ Object::~Object()
 {
 }
 
-sf::Sprite * Object::getSpritePtr()
+sf::Sprite* Object::getSpritePtr()
 {
 	return &this->m_sprite;
 }

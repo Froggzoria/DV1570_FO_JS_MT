@@ -21,7 +21,6 @@ private:
 	std::vector<Player*> players;
 	lua_State * L;
 
-
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 	void getPlayersFromLua(lua_State * L);

@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp" />
-    <ClCompile Include="Header\EditorMap.cpp" />
+    <ClCompile Include="Source\EditorMap.cpp" />
     <ClCompile Include="Source\Editor.cpp" />
     <ClCompile Include="Source\GameTile.cpp" />
     <ClCompile Include="Source\Minimap.cpp" />
@@ -44,6 +44,7 @@
     <ClInclude Include="Header\Minimap.h" />
     <ClInclude Include="Header\Object.h" />
     <ClInclude Include="Header\Player.h" />
+    <ClInclude Include="Header\SpawnPoint.h" />
     <ClInclude Include="Header\Weapon.h" />
     <ClInclude Include="Header\SubState.h" />
     <ClInclude Include="Header\State.h" />

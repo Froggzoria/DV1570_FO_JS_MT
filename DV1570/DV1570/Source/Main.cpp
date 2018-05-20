@@ -13,6 +13,7 @@ extern "C" {
 #define LUA_GRAVITY -190
 
 #include "GameTile.h"
+#include "SpawnPoint.h"
 
 int main()
 {
@@ -22,8 +23,8 @@ int main()
 	Editor editor(window);
 	int test;
 
-	GameTile testTile("Sand", 10, 10);
-	GameTile testTile2("Boulder", 50, 50);
+	GameTile testTile("Sand", 40, 40);
+	GameTile testTile2("Boulder", 80, 80);
 
 	std::cout << "1. Game" << std::endl;
 	std::cout << "2. Editor" << std::endl;
@@ -35,6 +36,7 @@ int main()
 	luaL_openlibs(L);
 	//register classes in Lua
 	register_player(L);
+	register_spawnpoint(L);
 	register_projectile(L);
 
 	lua_pushstring(L, "Levels//TestLevel.txt");
@@ -94,5 +96,7 @@ Exit:
 	std::cout << "\n\nPress anything to exit\n\n";
 	std::getchar();
 	
+	system("Pause");
+
 	return 0;
 }

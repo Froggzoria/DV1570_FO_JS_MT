@@ -4,6 +4,7 @@ print(LEVEL_PATH)
 --have a collection of global tables for all defined types
 
 PLAYERS = {}
+SPAWNPOINTS = {}
 
 levelFile = io.open(LEVEL_PATH, "r")
 --[[When we are parsing the level, we first get the type 
@@ -22,6 +23,10 @@ if levelFile then
 		end
 		if type == "Spawn" then
 		 --create a spawnpoint and insert to spawnppoint table
+			local x, y = line:match("(%d+) (%d+)")
+			print(x .. " " .. y)
+			local newSpawnPoint = SpawnPoint(x, y)
+			table.insert(SPAWNPOINTS, newSpawnPoint)
 		end
 		if type == "Boulder" then
 		--create a TileObject with boolean TRUE for indestructable

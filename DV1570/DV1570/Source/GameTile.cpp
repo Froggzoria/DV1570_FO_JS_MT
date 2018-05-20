@@ -16,8 +16,8 @@ GameTile::GameTile(std::string type, int posX, int posY)
 			m_sprite.setTexture(m_texture);
 			width = m_sprite.getLocalBounds().width;
 			height = m_sprite.getLocalBounds().height;
-			scaleW = 32.0f / width;
-			scaleH = 32.0f / height;
+			scaleW = 40.0f / width;
+			scaleH = 40.0f / height;
 			m_sprite.setScale(sf::Vector2f(scaleW, scaleH));
 			m_sprite.setPosition(sf::Vector2f(posX, posY));
 			isDestructable = true;
@@ -32,8 +32,8 @@ GameTile::GameTile(std::string type, int posX, int posY)
 			m_sprite.setTexture(m_texture);
 			width = m_sprite.getLocalBounds().width;
 			height = m_sprite.getLocalBounds().height;
-			scaleW = 32.0f / width;
-			scaleH = 32.0f / height;
+			scaleW = 40.0f / width;
+			scaleH = 40.0f / height;
 			m_sprite.setScale(sf::Vector2f(scaleW, scaleH));
 			m_sprite.setPosition(sf::Vector2f(posX, posY));
 			isDestructable = false;
