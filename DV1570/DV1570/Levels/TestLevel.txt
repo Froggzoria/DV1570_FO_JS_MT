@@ -1,3 +1,5 @@
 Player Max 100 200 400
 
 Spawn 120 400
+GameTile Boulder 300 300
+GameTile Sand 400 400

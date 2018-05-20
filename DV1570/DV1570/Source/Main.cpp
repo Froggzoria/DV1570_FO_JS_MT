@@ -13,7 +13,6 @@ extern "C" {
 #define LUA_GRAVITY -190
 
 #include "GameTile.h"
-#include "SpawnPoint.h"
 
 int main()
 {
@@ -38,6 +37,7 @@ int main()
 	register_player(L);
 	register_spawnpoint(L);
 	register_projectile(L);
+	register_gametile(L);
 
 	lua_pushstring(L, "Levels//TestLevel.txt");
 	lua_setglobal(L, "LEVEL_PATH");
@@ -95,7 +95,7 @@ Exit:
 
 	std::cout << "\n\nPress anything to exit\n\n";
 	std::getchar();
-	
+
 	system("Pause");
 
 	return 0;

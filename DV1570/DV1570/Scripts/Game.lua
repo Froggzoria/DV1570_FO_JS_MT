@@ -5,6 +5,7 @@ print(LEVEL_PATH)
 
 PLAYERS = {}
 SPAWNPOINTS = {}
+GAMETILES = {}
 
 levelFile = io.open(LEVEL_PATH, "r")
 --[[When we are parsing the level, we first get the type 
@@ -20,19 +21,18 @@ if levelFile then
 			print(name .. " " .. hp .. " " ..  x .. " " ..  y)
 			local newPlayer =  Player(name, hp, x, y)
 			table.insert(PLAYERS, newPlayer)
-		end
-		if type == "Spawn" then
+		elseif type == "Spawn" then
 		 --create a spawnpoint and insert to spawnppoint table
 			local x, y = line:match("(%d+) (%d+)")
 			print(x .. " " .. y)
 			local newSpawnPoint = SpawnPoint(x, y)
 			table.insert(SPAWNPOINTS, newSpawnPoint)
-		end
-		if type == "Boulder" then
+		elseif type == "GameTile" then
 		--create a TileObject with boolean TRUE for indestructable
-		end
-		if type == "Ground" then
-		--cretae TileObject with boolean FALSE for indestructable
+			local name, x, y = line:match("(%a+) (%d+) (%d+)")
+			print(name .. " " .. x .. " " .. y)
+			local newGameTile = GameTile(name, x, y)
+			table.insert(GAMETILES, newGameTile)
 		end
 	end
 else

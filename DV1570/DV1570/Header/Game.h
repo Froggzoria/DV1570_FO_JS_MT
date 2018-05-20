@@ -4,6 +4,8 @@
 #include<iostream>
 #include <SFML\Graphics.hpp>
 #include"Player.h"
+#include "SpawnPoint.h"
+#include "GameTile.h"
 #include <vector>
 
 extern "C"
@@ -19,11 +21,15 @@ private:
 	sf::Texture backgroundTex;
 	sf::Sprite backgroundSprite;
 	std::vector<Player*> players;
+	std::vector<SpawnPoint*> spawnPoints;
+	std::vector<GameTile*> gameTiles;
 	lua_State * L;
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
 	void getPlayersFromLua(lua_State * L);
+	void getSpawnPointsFromLua(lua_State* L);
+	void getGameTilesFromLua(lua_State* L);
 public:
 	Game();
 

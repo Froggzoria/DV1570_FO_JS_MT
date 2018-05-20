@@ -1,14 +1,17 @@
 #include "Game.h"
 #include <cmath>
 
-void Game::draw(sf::RenderTarget & target, sf::RenderStates states) const
+void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(backgroundSprite, states);
 	for (auto player : players)
 	{
 		player->draw(this->L, target, states);
 	}
-	
+	for (auto tile : gameTiles)
+	{
+		target.draw(*tile);
+	}
 }
 
 void Game::getPlayersFromLua(lua_State * L)
@@ -30,6 +33,38 @@ void Game::getPlayersFromLua(lua_State * L)
 		lua_pop(L, 1);
 	}
 
+}
+
+void Game::getSpawnPointsFromLua(lua_State * L)
+{
+	lua_getglobal(L, "SPAWNPOINTS");
+	SpawnPoint* sP = nullptr;
+	lua_topointer(L, -1);
+	lua_pushnil(L);
+	while (lua_next(L, -2) != 0)
+	{
+		lua_typename(L, lua_type(L, -1));
+		lua_topointer(L, -1);
+		sP = (SpawnPoint*)lua_touserdata(L, -1);
+		spawnPoints.push_back(sP);
+		lua_pop(L, 1);
+	}
+}
+
+void Game::getGameTilesFromLua(lua_State * L)
+{
+	lua_getglobal(L, "GAMETILES");
+	GameTile* gT = nullptr;
+	lua_topointer(L, -1);
+	lua_pushnil(L);
+	while (lua_next(L, -2) != 0)
+	{
+		lua_typename(L, lua_type(L, -1));
+		lua_topointer(L, -1);
+		gT = (GameTile*)lua_touserdata(L, -1);
+		gameTiles.push_back(gT);
+		lua_pop(L, 1);
+	}
 }
 
 Game::Game()
@@ -55,6 +90,8 @@ bool Game::init(lua_State * L, std::string script)
 	//created/added in the editor - let the script read and parse the level save file
 	//get all the object pointers from the global object tables in Lua
 	getPlayersFromLua(L);
+	getSpawnPointsFromLua(L);
+	getGameTilesFromLua(L);
 
 	return true;
 }
