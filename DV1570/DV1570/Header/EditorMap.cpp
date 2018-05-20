@@ -206,7 +206,11 @@ void EditorMap::setPlayerSpawn(TileObject spawn)
 void EditorMap::saveMap()
 {
 	std::ofstream save;
-	save.open("test.fmj");
+	std::string filename;
+	std::cout << "Filename: " << std::endl;
+	std::cin >> filename;
+	filename += ".fmj";
+	save.open(filename);
 
 	if (save.is_open())
 	{

@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
+#include "Editor.h"
 
 extern "C" {
 #include <lua.h>
@@ -17,6 +18,13 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF) | _CRTDBG_LEAK_CHECK_DF;
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Lira liide Liero");
 	Game game;
+	Editor editor(window);
+	int test;
+
+	std::cout << "1. Game" << std::endl;
+	std::cout << "2. Editor" << std::endl;
+	cin >> test;
+
 	sf::Clock gameTime;
 	
 	lua_State* L = luaL_newstate();
@@ -59,11 +67,16 @@ int main()
 		lua_pushnumber(L, dt);
 		lua_setglobal(L, "FRAME_DELTA_TIME");
 
-		game.Update(dt, window, L);
-
+		if (1 == test)
+			game.Update(dt, window, L);
+		else
+			editor.update(window);
 		// Draw()
 		window.clear();
-		window.draw(game);
+		if (1 == test)
+			window.draw(game);
+		else
+			window.draw(editor);
 		window.display();
 	}
 Exit:
