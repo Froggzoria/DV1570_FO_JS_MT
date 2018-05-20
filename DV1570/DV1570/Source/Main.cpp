@@ -36,7 +36,7 @@ int main()
 	register_projectile(L);
 	register_gametile(L);
 
-	lua_pushstring(L, "Levels//TestLevel.txt");
+	lua_pushstring(L, "Levels//TestMap.txt");
 	lua_setglobal(L, "LEVEL_PATH");
 
 	if (!game.init(L, "Scripts//Game.lua"))

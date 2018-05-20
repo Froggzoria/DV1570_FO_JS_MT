@@ -27,7 +27,6 @@ public:
 	void loadMap(std::string path);
 
 	void saveLUA(std::string path);
-	void loadLUA(std::string path);
 
 	virtual void update(sf::RenderWindow &window);
 };

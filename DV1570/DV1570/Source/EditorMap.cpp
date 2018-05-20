@@ -322,6 +322,7 @@ void EditorMap::saveLUA(std::string path)
 		//save << "Player Frogge 100 200 400" << std::endl;
 		for (auto tiles : m_mapTiles)
 		{
+			save << "GameTile" << " ";
 			save << "Sand" << " ";
 			save << tiles.pos.x << " ";
 			save << tiles.pos.y << std::endl;
@@ -329,6 +330,7 @@ void EditorMap::saveLUA(std::string path)
 		// Indestructible objects
 		for (auto tiles : m_indestructibleTiles)
 		{
+			save << "GameTile" << " ";
 			save << "Boulder" << " ";
 			save << tiles.pos.x << " ";
 			save << tiles.pos.y << std::endl;
@@ -346,10 +348,6 @@ void EditorMap::saveLUA(std::string path)
 		save << "EOF" << std::endl;
 		save.close();
 	}
-}
-
-void EditorMap::loadLUA(std::string path)
-{
 }
 
 void EditorMap::update(sf::RenderWindow &window)
