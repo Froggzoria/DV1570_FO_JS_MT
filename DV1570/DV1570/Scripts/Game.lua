@@ -20,6 +20,7 @@ if levelFile then
 			local newPlayer =  Player(name, hp, x, y)
 			table.insert(PLAYERS, newPlayer)
 		end
+<<<<<<< HEAD
 		if "Spawn" == type then
 		
 		end
@@ -28,6 +29,16 @@ if levelFile then
 		end
 		if "Ground" == type then
 		
+=======
+		if type == "Spawn" then
+		 --create a spawnpoint and insert to spawnppoint table
+		end
+		if type == "Boulder" then
+		--create a TileObject with boolean TRUE for indestructable
+		end
+		if type == "Ground" then
+		--cretae TileObject with boolean FALSE for indestructable
+>>>>>>> master
 		end
 	end
 else
