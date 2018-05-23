@@ -41,6 +41,40 @@ GameTile::GameTile(std::string type, int posX, int posY)
 	}
 }
 
+void GameTile::onProjectileEvent(sf::Vector2f impactPoint, float blastRadius)
+{
+	if (this->m_sprite.getPosition() == impactPoint && this->isDestructable == true)
+	{
+		float radius = blastRadius;
+
+		float left = impactPoint.x - radius;
+		float right = impactPoint.x + radius;
+		float top = impactPoint.y - radius;
+		float bottom = impactPoint.y + radius;
+
+		sf::Image image = m_texture.copyToImage();
+		sf::Vector2u imagineSize = image.getSize();
+		for (int i = top; i < bottom; i++)
+		{
+			for (int k = left; k < right; k++)
+			{
+				if ((i >= 0 && i < imagineSize.y) && (k >= 0 && k < imagineSize.y))
+				{
+					double dist = pow(impactPoint.x - k, 2) + pow(impactPoint.y - i, 2);
+					if (dist <= pow(radius, 2))
+					{
+						sf::Color pixel = image.getPixel(k, i);
+						pixel.a = 0;
+						image.setPixel(k, i, pixel);
+					}
+				}
+			}
+		}
+		m_texture.update(image);
+		m_sprite.setTexture(m_texture);
+	}
+}
+
 void GameTile::draw(sf::RenderTarget &window, sf::RenderStates states) const
 {
 	window.draw(m_sprite, states);

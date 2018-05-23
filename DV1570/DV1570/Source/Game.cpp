@@ -122,17 +122,27 @@ void Game::Update(float dt, const sf::Window &win, lua_State *L)
 	m_turnTimeText.setString("Turn time remaining: " + std::to_string((int)(m_turnLimit - m_turnTime)));
 	if (m_turnTime > m_turnLimit)
 	{
-		if (0 == m_playerTurn)
 		m_turnTime = 0.0f;
+		if (0 == m_playerTurn)
 		{
 			m_playerTurn = 1;
 			m_playerTurnText.setString("Player turn: " + std::to_string(m_playerTurn));
 		}
 		else
-			m_playerTurn = 0;
 		{
+			m_playerTurn = 0;
 			m_playerTurnText.setString("Player turn: " + std::to_string(m_playerTurn));
 
+		}
+		for (auto player : players)
+		{
+			for (auto gameTile : gameTiles)
+			{
+				if (Collision::pixelPerfectTest(player->getSprite(), gameTile->getSprite(),800*600))
+				{
+					cout << "Hellu" << endl;
+				}
+			}
 		}
 	}
 	players[m_playerTurn]->update(dt, L, win);
@@ -142,18 +152,25 @@ void Game::Update(float dt, const sf::Window &win, lua_State *L)
 		sf::Vector2i pos = sf::Mouse::getPosition(win);
 		int radius = 10;
 
+		int left = pos.x - radius;
+		int right = pos.x + radius;
+		int top = pos.y - radius;
+		int bottom = pos.y + radius;
 			sf::Image image = backgroundTex.copyToImage();
 			sf::Vector2u imageSize = image.getSize();
 			for (int i = top; i < bottom; i++)
 			{
-				if ((i >= 0 && i < imageSize.y) && (k >= 0 && k < imageSize.x))
+				for (int k = left; k < right; k++)
 				{
-					double dist = pow(pos.x - k, 2) + pow(pos.y - i, 2);
-					if (dist <= pow(radius, 2))
+					if ((i >= 0 && i < imageSize.y) && (k >= 0 && k < imageSize.x))
 					{
-						sf::Color pixel = image.getPixel(k, i);
-						pixel.a = 0;
-						image.setPixel(k, i, pixel);
+						double dist = pow(pos.x - k, 2) + pow(pos.y - i, 2);
+						if (dist <= pow(radius, 2))
+						{
+							sf::Color pixel = image.getPixel(k, i);
+							pixel.a = 0;
+							image.setPixel(k, i, pixel);
+						}
 					}
 				}
 			}
